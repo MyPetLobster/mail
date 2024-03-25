@@ -32,6 +32,7 @@ body {
 .top-navbar svg {
     height: 24px;
     width: 24px;
+    margin-left: 8px;
 }
 #gmail-logo {
     height: 40px;
@@ -72,8 +73,8 @@ body {
     font-size: 0.8em;
 }
 .profile-pic-container {
-    height: 48px;
-    width: 48px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -81,6 +82,10 @@ body {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+.profile-pic-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 
@@ -110,3 +115,13 @@ body {
     border: 1px solid #ccc;
 }
 
+.email-div-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+.page-arrow-div {
+    display: flex;
+    justify-content: space-between;
+}

@@ -3,11 +3,23 @@
 
 {% block body %}
 
-    <button class="btn btn-sm btn-outline-primary inbox-link">Inbox</button>
-    <button class="btn btn-sm btn-outline-primary compose-link">Compose</button>
-    <button class="btn btn-sm btn-outline-primary sent-link">Sent</button>
-    <button class="btn btn-sm btn-outline-primary archive-link">Archived</button>
-    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    <div class="email-div-header">
+        <div class="select-all-div">
+            <input type="checkbox" id="select-all"> Select All
+        </div>
+        <div class="page-arrow-div">
+            <div id="now-showing">1-50</div>&nbsp;
+            <div id="total-emails">of 97</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;  
+            <div id="left-arrow"> 
+                <a href="#" id="previous-page"><</a>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;  
+            <div id="right-arrow">
+                <a href="#" id="next-page">></a>
+            </div>
+        </div>
+    </div>
     <hr>
 
     <div id="emails-view">
