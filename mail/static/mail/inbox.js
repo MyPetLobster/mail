@@ -95,9 +95,10 @@ function load_mailbox(mailbox) {
       // Set innerHTML format depending on the mailbox
       if (mailbox === "sent") {
         email_div.innerHTML = `<b>To: ${recipients_concat}</b> - ${subject} - ${email.timestamp}`;
-      } else if (mailbox === "inbox") {
+      } else {
         email_div.innerHTML = `<b>From: ${email.sender}</b> - ${subject} - ${email.timestamp}`;
-      }
+      } 
+        
 
       email_div.addEventListener('click', () => {
         load_email(email.id);
@@ -119,7 +120,7 @@ function load_email(email_id) {
 
   // Clear the email-view
   document.querySelector('#email-view').innerHTML = '';
-  
+
   // Get the email
   fetch(`/emails/${email_id}`)
   .then(response => response.json())
@@ -149,9 +150,23 @@ function load_email(email_id) {
 
     // Create a button to archive
     const archive_button = document.createElement('button');
-    archive_button.innerHTML = 'Archive';
+    if (email.archived) {
+      archive_button.innerHTML = 'Unarchive';
+    } else { 
+      archive_button.innerHTML = 'Archive';
+    }
+
     archive_button.addEventListener('click', () => {
-      archive_email(email_id, email.archived);
+      archived = !email.archived;
+      fetch(`/emails/${email_id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          archived: archived
+        })
+      });
+
+    load_mailbox('inbox');
+
     });
 
     // Append the button to the email-view
