@@ -1,34 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   // Use navbar or sidebar links to load mailboxes
-  const inboxLinks = document.querySelectorAll('.inbox-link');
-  const sentLinks = document.querySelectorAll('.sent-link');
-  const archiveLinks = document.querySelectorAll('.archive-link');
-  const composeLinks = document.querySelectorAll('.compose-link');
-
-  inboxLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      load_mailbox('inbox');
-    });
+  document.querySelector('#inbox-link').addEventListener('click', () => {
+    load_mailbox('inbox');
   });
-
-  sentLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      load_mailbox('sent');
-    });
+  document.querySelector('#sent-link').addEventListener('click', () => {
+    load_mailbox('sent');
   });
-
-  archiveLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      load_mailbox('archive');
-    });
+  document.querySelector('#archive-link').addEventListener('click', () => {
+    load_mailbox('archive');
   });
-
-  composeLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      compose_email();
-    });
-  });
+  document.querySelector('#compose-button').addEventListener('click', compose_email);
 
   // Compose form submit event
   document.querySelector('#compose-form').addEventListener('submit', () => {

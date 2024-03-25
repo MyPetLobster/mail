@@ -21,18 +21,16 @@
                         <img id="gmail-logo" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r5.png">
                     </a>
                 </div>
+                <button id="compose-button" class="btn btn-primary compose-link">Compose</button>
                 <ul id="navbar-nav" class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link inbox-link">Inbox</a>
+                        <a id="inbox-link" class="nav-link">Inbox</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link compose-link">Compose</a>
+                        <a id="sent-link" class="nav-link">Sent</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link sent-link">Sent</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link archive-link">Archived</a>
+                        <a id="archive-link" class="nav-link">Archived</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
