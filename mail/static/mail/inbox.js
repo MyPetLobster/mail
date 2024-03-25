@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+  const inboxLinks = document.querySelectorAll('.inbox-link');
+  inboxLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      load_mailbox('inbox');
+    });
+  });
   // Use buttons to toggle between views
-  document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);

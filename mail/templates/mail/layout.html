@@ -12,6 +12,31 @@
         {% endblock %}
     </head>
     <body>
+        <div class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'index' %}">Mail</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link inbox-link">Inbox</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Compose</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Sent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Archived</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="container">
             {% block body %}
             {% endblock %}
