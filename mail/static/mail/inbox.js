@@ -86,6 +86,12 @@ function load_mailbox(mailbox) {
 
       email_div.className = 'email';
 
+      if (email.read) {
+        email_div.style.backgroundColor = 'lightgray';
+      } else {
+        email_div.style.backgroundColor = 'white';
+      }
+
       // Set innerHTML format depending on the mailbox
       if (mailbox === "sent") {
         email_div.innerHTML = `<b>To: ${recipients_concat}</b> - ${subject} - ${email.timestamp}`;
@@ -111,6 +117,9 @@ function load_email(email_id) {
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
 
+  // Clear the email-view
+  document.querySelector('#email-view').innerHTML = '';
+  
   // Get the email
   fetch(`/emails/${email_id}`)
   .then(response => response.json())
