@@ -93,7 +93,13 @@ function load_mailbox(mailbox) {
       const subject = email.subject ? email.subject : '(no subject)';
       const email_div = document.createElement('div');
 
+      const senderRecipientDiv = document.createElement('div');
+      const subjectDiv = document.createElement('div');
+      const timestampDiv = document.createElement('div');
+
+
       email_div.className = 'email';
+
 
       if (email.read) {
         email_div.style.backgroundColor = 'lightgray';
@@ -101,13 +107,36 @@ function load_mailbox(mailbox) {
         email_div.style.backgroundColor = 'white';
       }
 
-      // Set innerHTML format depending on the mailbox
+
+      subjectDiv.innerHTML = subject;
+      timestampDiv.innerHTML = email.timestamp;
+      timestampDiv.classList.add('timestamp');
+
       if (mailbox === "sent") {
-        email_div.innerHTML = `<b>To: ${recipients_concat}</b> - ${subject} - ${email.timestamp}`;
+        senderRecipientDiv.innerHTML = `<b>To: ${recipients_concat}</b>`;
       } else {
-        email_div.innerHTML = `<b>From: ${email.sender}</b> - ${subject} - ${email.timestamp}`;
+        senderRecipientDiv.innerHTML = `<b>${email.sender}</b>`;
       } 
-        
+
+      senderRecipientDiv.style.width = '30%';
+      checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.style.float = 'left';
+      checkbox.style.width = '14px';
+      checkbox.style.height = '14px';
+      checkbox.style.marginRight = '10px';
+      checkbox.style.position = 'relative';
+
+      const rightSideDiv = document.createElement('div');
+      rightSideDiv.classList.add('right-side-div');
+      rightSideDiv.appendChild(subjectDiv);
+      rightSideDiv.appendChild(timestampDiv);
+
+      email_div.appendChild(checkbox);
+      email_div.appendChild(senderRecipientDiv);
+      email_div.appendChild(rightSideDiv);
+
+
       email_div.addEventListener('click', () => {
         load_email(email.id);
       });

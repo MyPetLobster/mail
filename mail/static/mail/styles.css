@@ -46,6 +46,7 @@ body {
     padding: 8px;
     border-radius: 25px;
     background-color: #d5d5d5;
+    transition-duration: 250ms;
 }
 .search-bar svg {
     height: 24px;
@@ -56,6 +57,7 @@ body {
     width: 100%;
     margin-left: 0;
     padding-left: 0;
+    transition-duration: 250ms;
 }
 #search:active,
 #search:focus {
@@ -92,6 +94,7 @@ body {
 }
 
 
+
 .page-content {
     display: grid;
     grid-template-columns: 1fr 6fr;
@@ -111,11 +114,24 @@ body {
     cursor: pointer;
 }
 
+.email:first-of-type {
+    border-top: 1px solid #3c3b3b;
+}
 .email {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     cursor: pointer;
-    padding: 8px;
-    margin-top: 8px;
-    border: 1px solid #ccc;
+    padding: 4px;
+    border: 1px solid #3c3b3b;
+    border-top: none;
+    font-size: 0.7em;
+}
+.right-side-div {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .email-div-header {
