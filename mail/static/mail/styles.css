@@ -3,7 +3,7 @@ textarea {
 }
 
 body { 
-    background-color: #ccc;
+    background-color: #eeeeee;
 }
 .container {
     padding-right: 0;
@@ -19,22 +19,47 @@ body {
 .bottom-container {
     background-color: white;
     padding: 16px;
-    border-top-left-radius: 8px;
+    border-top-left-radius: 16px;
     min-height: 100vh;
 }
 
 .top-navbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     height: 68px;
+}
+.top-navbar svg {
+    height: 24px;
+    width: 24px;
 }
 #gmail-logo {
     height: 40px;
     width: 109px;
 }
-#search {
+.search-bar {
+    display: flex;
+    align-items: center;
     height: 46px;
     width: 60%;
     padding: 8px;
     border-radius: 25px;
+    background-color: #d5d5d5;
+}
+.search-bar svg {
+    height: 24px;
+}
+#search {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    margin-left: 0;
+    padding-left: 0;
+}
+#search:active,
+#search:focus {
+    border: none !important;
+    outline: none !important;
 }
 .user-info {
     display: flex;
