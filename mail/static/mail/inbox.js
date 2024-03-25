@@ -15,6 +15,7 @@ function compose_email() {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
 
   // Clear out composition fields
@@ -28,6 +29,7 @@ function load_mailbox(mailbox) {
   
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
+  document.querySelector('#email-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
 
   // Show the mailbox name
@@ -48,7 +50,7 @@ function load_mailbox(mailbox) {
       const recipients_concat = recipients.length > 25 ? recipients.substring(0, 25) + '...' : recipients;
       const subject = email.subject ? email.subject : '(no subject)';
       const email_div = document.createElement('div');
-      
+
       email_div.className = 'email';
       email_div.innerHTML = `<b>To: ${recipients_concat}</b> - ${subject} - ${email.timestamp}`;
       email_div.addEventListener('click', () => {
