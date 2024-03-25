@@ -1,20 +1,42 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // Use navbar or sidebar links to load mailboxes
   const inboxLinks = document.querySelectorAll('.inbox-link');
+  const sentLinks = document.querySelectorAll('.sent-link');
+  const archiveLinks = document.querySelectorAll('.archive-link');
+  const composeLinks = document.querySelectorAll('.compose-link');
+
   inboxLinks.forEach(link => {
     link.addEventListener('click', () => {
       load_mailbox('inbox');
     });
   });
-  // Use buttons to toggle between views
-  document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
-  document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', compose_email);
+
+  sentLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      load_mailbox('sent');
+    });
+  });
+
+  archiveLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      load_mailbox('archive');
+    });
+  });
+
+  composeLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      compose_email();
+    });
+  });
+
+  // Compose form submit event
   document.querySelector('#compose-form').addEventListener('submit', () => {
     send_mail();
     localStorage.setItem('sent', 'true')
   });
 
+  // By default, load the inbox
   if (localStorage.getItem('sent') === 'true') {
     load_mailbox('sent');
     localStorage.setItem('sent', 'false');
@@ -35,6 +57,7 @@ function compose_email() {
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
 }
+
 
 function send_mail() {
 

@@ -2,6 +2,10 @@ textarea {
     min-height: 400px;
 }
 
+.nav-link {
+    cursor: pointer;
+}
+
 .email {
     cursor: pointer;
     padding: 8px;

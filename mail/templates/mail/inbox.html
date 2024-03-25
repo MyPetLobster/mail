@@ -5,9 +5,9 @@
     <h2>{{ request.user.email }}</h2>
 
     <button class="btn btn-sm btn-outline-primary inbox-link">Inbox</button>
-    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <button class="btn btn-sm btn-outline-primary compose-link">Compose</button>
+    <button class="btn btn-sm btn-outline-primary sent-link">Sent</button>
+    <button class="btn btn-sm btn-outline-primary archive-link">Archived</button>
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
     <hr>
 
