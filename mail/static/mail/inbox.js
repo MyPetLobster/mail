@@ -54,7 +54,6 @@ function send_mail() {
 
   // Load the sent mailbox
   load_mailbox('sent');
-  alert('Email sent!');
 }
 
 
@@ -76,6 +75,7 @@ function load_mailbox(mailbox) {
     // Print emails
     console.log(emails);
 
+    
     // Loop through the emails
     emails.forEach(email => {
       // Create a div for the email
@@ -85,7 +85,14 @@ function load_mailbox(mailbox) {
       const email_div = document.createElement('div');
 
       email_div.className = 'email';
-      email_div.innerHTML = `<b>To: ${recipients_concat}</b> - ${subject} - ${email.timestamp}`;
+
+      // Set innerHTML format depending on the mailbox
+      if (mailbox === "sent") {
+        email_div.innerHTML = `<b>To: ${recipients_concat}</b> - ${subject} - ${email.timestamp}`;
+      } else if (mailbox === "inbox") {
+        email_div.innerHTML = `<b>From: ${email.sender}</b> - ${subject} - ${email.timestamp}`;
+      }
+
       email_div.addEventListener('click', () => {
         load_email(email.id);
       });
