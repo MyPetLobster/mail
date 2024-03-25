@@ -90,6 +90,8 @@ function load_mailbox(mailbox) {
       // Create a div for the email
       const recipients = email.recipients.join(', ')
       const recipients_concat = recipients.length > 25 ? recipients.substring(0, 25) + '...' : recipients;
+      const sender = email.sender;
+      const sender_concat = sender.length > 25 ? sender.substring(0, 25) + '...' : sender;
       const subject = email.subject ? email.subject : '(no subject)';
       const email_div = document.createElement('div');
 
@@ -115,7 +117,7 @@ function load_mailbox(mailbox) {
       if (mailbox === "sent") {
         senderRecipientDiv.innerHTML = `<b>To: ${recipients_concat}</b>`;
       } else {
-        senderRecipientDiv.innerHTML = `<b>${email.sender}</b>`;
+        senderRecipientDiv.innerHTML = `<b>${sender_concat}</b>`;
       } 
 
       senderRecipientDiv.style.width = '30%';
