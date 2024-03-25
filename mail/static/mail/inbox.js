@@ -74,8 +74,6 @@ function load_mailbox(mailbox) {
 
     // Print emails
     console.log(emails);
-
-    
     // Loop through the emails
     emails.forEach(email => {
       // Create a div for the email
@@ -99,7 +97,6 @@ function load_mailbox(mailbox) {
         email_div.innerHTML = `<b>From: ${email.sender}</b> - ${subject} - ${email.timestamp}`;
       } 
         
-
       email_div.addEventListener('click', () => {
         load_email(email.id);
       });
@@ -164,9 +161,8 @@ function load_email(email_id) {
           archived: archived
         })
       });
-
-    load_mailbox('inbox');
-
+      // wait until db is updated then refresh inbox
+      setTimeout(() => load_mailbox('inbox'), 100);
     });
 
     // Append the button to the email-view
