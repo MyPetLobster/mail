@@ -12,13 +12,15 @@
         {% endblock %}
     </head>
     <body>
-        <div class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'index' %}">Mail</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+        
+        <div class="page-content">
+            <div class="navbar navbar-expand-lg navbar-light">
+                <div class="top-navbar">
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        <img id="gmail-logo" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r5.png">
+                    </a>
+                </div>
+                <ul id="navbar-nav" class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link inbox-link">Inbox</a>
                     </li>
@@ -36,10 +38,24 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="container">
-            {% block body %}
-            {% endblock %}
+            <div class="container">
+                <div class="top-container">
+                    <input id="search" class="form-control" placeholder="Search">
+                    <div class="user-info">
+                        <a class="profile-pic-container" href="{% url 'index' %}">
+                            {% if request.user.profile_picture %}
+                                <img class="profile-picture" src="{{ request.user.profile_picture.url }}">
+                            {% else %}
+                                <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+                <div class="bottom-container">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
         </div>
     </body>
 </html>

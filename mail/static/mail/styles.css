@@ -2,6 +2,78 @@ textarea {
     min-height: 400px;
 }
 
+body { 
+    background-color: #ccc;
+}
+.container {
+    padding-right: 0;
+    margin-right: 0;
+}
+.top-container {
+    height: 68px;
+    padding: 16px 16px 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bottom-container {
+    background-color: white;
+    padding: 16px;
+    border-top-left-radius: 8px;
+    min-height: 100vh;
+}
+
+.top-navbar {
+    height: 68px;
+}
+#gmail-logo {
+    height: 40px;
+    width: 109px;
+}
+#search {
+    height: 46px;
+    width: 60%;
+    padding: 8px;
+    border-radius: 25px;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+}
+.user-info span {
+    font-size: 0.8em;
+}
+.profile-pic-container {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile-picture {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.page-content {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}
+.navbar {
+    height: 100vh;
+}
+#navbar-nav,
+.navbar {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
 .nav-link {
     cursor: pointer;
 }
@@ -12,3 +84,4 @@ textarea {
     margin-top: 8px;
     border: 1px solid #ccc;
 }
+
