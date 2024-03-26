@@ -1,5 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Set the current page and emails per page
+let currentPage = 1;
+let emailsPerPage = 10;
+let totalEmails = 0;
 
+document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
     load_mailbox('inbox');
@@ -25,6 +29,30 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     load_mailbox('inbox');
   }
+
+  // Event listener for right arrow button
+  document.querySelector('#right-arrow').addEventListener('click', () => {
+    if ((currentPage * emailsPerPage) < totalEmails) {
+      currentPage++;
+      if (localStorage.getItem('sent') === 'true') {
+        load_mailbox('sent');
+      } else {
+        load_mailbox('inbox');
+      }
+    }
+  });
+
+  // Event listener for left arrow button
+  document.querySelector('#left-arrow').addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      if (localStorage.getItem('sent') === 'true') {
+        load_mailbox('sent');
+      } else {
+        load_mailbox('inbox');
+      }
+    }
+  });
 });
 
 function compose_email() {
@@ -69,7 +97,13 @@ function send_mail() {
 
 
 function load_mailbox(mailbox) {
-  
+
+  if (mailbox === 'sent') {
+    localStorage.setItem('sent', 'true');
+  } else {
+    localStorage.setItem('sent', 'false');
+  }
+
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#email-view').style.display = 'none';
@@ -78,25 +112,25 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
-  // Get the emails
+  // Calculate offset to fetch emails based on current page
+  const offset = (currentPage - 1) * emailsPerPage;
+
+  // Fetch emails for the current page
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
   .then(emails => {
-
-    // Print emails
-    console.log(emails);
-
-    const totalEmailsDiv = document.querySelector('#total-emails');
+    totalEmails = emails.length; // Update total number of emails
+    
+    // Update display text
     const nowShowingDiv = document.querySelector('#now-showing');
-    const totalEmails = emails.length;
+    const firstEmailIndex = offset + 1;
+    const lastEmailIndex = Math.min(offset + emailsPerPage, totalEmails);
+    nowShowingDiv.innerHTML = `${firstEmailIndex}-${lastEmailIndex} of ${totalEmails}`;
 
-    if (totalEmails < 50) {
-      nowShowingDiv.innerHTML = `1-${totalEmails}`;
-    }
-    totalEmailsDiv.innerHTML = `of ${totalEmails}`;
+    let emailsToDisplay = emails.slice(offset, offset + emailsPerPage);
 
     // Loop through the emails
-    emails.forEach(email => {
+    emailsToDisplay.forEach(email => {
       // Create a div for the email
       const recipients = email.recipients.join(', ')
       const recipients_concat = recipients.length > 25 ? recipients.substring(0, 25) + '...' : recipients;
@@ -121,7 +155,7 @@ function load_mailbox(mailbox) {
 
 
       if (email.read) {
-        email_div.style.backgroundColor = 'lightgray';
+        email_div.style.backgroundColor = '#efefef';
         email_div.style.fontWeight = 'normal';
       } else {
         email_div.style.backgroundColor = 'white';
