@@ -85,6 +85,16 @@ function load_mailbox(mailbox) {
 
     // Print emails
     console.log(emails);
+
+    const totalEmailsDiv = document.querySelector('#total-emails');
+    const nowShowingDiv = document.querySelector('#now-showing');
+    const totalEmails = emails.length;
+
+    if (totalEmails < 50) {
+      nowShowingDiv.innerHTML = `1-${totalEmails}`;
+    }
+    totalEmailsDiv.innerHTML = `of ${totalEmails}`;
+
     // Loop through the emails
     emails.forEach(email => {
       // Create a div for the email
@@ -92,32 +102,44 @@ function load_mailbox(mailbox) {
       const recipients_concat = recipients.length > 25 ? recipients.substring(0, 25) + '...' : recipients;
       const sender = email.sender;
       const sender_concat = sender.length > 25 ? sender.substring(0, 25) + '...' : sender;
-      const subject = email.subject ? email.subject : '(no subject)';
-      const email_div = document.createElement('div');
+      const subject = `${email.subject ? email.subject : '(no subject)'} -&nbsp;`;
+      const concat_body = email.body.length > 40 ? email.body.substring(0, 40) + '...' : email.body;
 
+      const email_div = document.createElement('div');
       const senderRecipientDiv = document.createElement('div');
       const subjectDiv = document.createElement('div');
+      subjectDiv.classList.add('subject-div');
+
+      const subjectSpan = document.createElement('div');
+      subjectSpan.innerHTML = subject;
+      const bodySpan = document.createElement('span');
+      bodySpan.innerHTML = concat_body;
+      bodySpan.classList.add('concat-body');
       const timestampDiv = document.createElement('div');
-
-
+      
       email_div.className = 'email';
 
 
       if (email.read) {
         email_div.style.backgroundColor = 'lightgray';
+        email_div.style.fontWeight = 'normal';
       } else {
         email_div.style.backgroundColor = 'white';
+        email_div.style.fontWeight = 'bold';
       }
 
 
-      subjectDiv.innerHTML = subject;
-      timestampDiv.innerHTML = email.timestamp;
+      subjectDiv.appendChild(subjectSpan);
+      subjectDiv.appendChild(bodySpan);
+
+      const formatDate = new Date(email.timestamp);
+      timestampDiv.innerHTML = `${formatDate.toDateString().substring(4, 10)}`;
       timestampDiv.classList.add('timestamp');
 
       if (mailbox === "sent") {
-        senderRecipientDiv.innerHTML = `<b>To: ${recipients_concat}</b>`;
+        senderRecipientDiv.innerHTML = `To: ${recipients_concat}`;
       } else {
-        senderRecipientDiv.innerHTML = `<b>${sender_concat}</b>`;
+        senderRecipientDiv.innerHTML = `${sender_concat}`;
       } 
 
       senderRecipientDiv.style.width = '30%';

@@ -5,19 +5,15 @@
 
     <div class="email-div-header">
         <div class="select-all-div">
-            <input type="checkbox" id="select-all"> Select All
+            <input type="checkbox" id="select-all"> <span id="select-all-text">Select All</span>
         </div>
         <div class="page-arrow-div">
-            <div id="now-showing">1-50</div>&nbsp;
-            <div id="total-emails">of 97</div>
+            <div id="now-showing"></div>&nbsp;
+            <div id="total-emails"></div>
             &nbsp;&nbsp;&nbsp;&nbsp;  
-            <div id="left-arrow"> 
-                <a href="#" id="previous-page"><</a>
-            </div>
+            <div id="left-arrow"><</div>
             &nbsp;&nbsp;&nbsp;&nbsp;  
-            <div id="right-arrow">
-                <a href="#" id="next-page">></a>
-            </div>
+            <div id="right-arrow">></div>
         </div>
     </div>
     <hr>
@@ -43,7 +39,6 @@
     </div>
 
     <div id="email-view"></div>
-    
 {% endblock %}
 
 {% block script %}

@@ -2,6 +2,10 @@ textarea {
     min-height: 400px;
 }
 
+.hidden {
+    display: none;
+}
+
 body { 
     background-color: #eeeeee;
 }
@@ -122,7 +126,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
-    padding: 4px;
+    padding: 4px 16px;
     border: 1px solid #3c3b3b;
     border-top: none;
     font-size: 0.7em;
@@ -200,4 +204,41 @@ body {
 }
 #logout-link:hover {
     color: rgb(197,34,31);
+}
+
+
+
+.subject-div {
+    display: flex;
+}
+.concat-body {
+    color:rgb(129, 117, 117)
+}
+
+#now-showing,
+#total-emails,
+#left-arrow,
+#right-arrow,
+#select-all-text {
+    font-size: 0.8em;
+    color: rgb(129, 117, 117);
+}
+
+#select-all-text {
+    position: relative;
+    bottom: 1px;
+}
+
+#left-arrow,
+#right-arrow {
+    cursor: pointer;
+}
+
+#left-arrow:hover {
+    text-decoration: none;
+    color: rgb(197,34,31);
+}
+#right-arrow:hover {
+    text-decoration: none;
+    color: rgb(51,168,82);
 }
