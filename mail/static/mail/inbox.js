@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   document.querySelector('#archive-link').addEventListener('click', () => {
     load_mailbox('archive');
+    localStorage.setItem('archive', 'true');
   });
   document.querySelector('#compose-button').addEventListener('click', compose_email);
 
@@ -26,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (localStorage.getItem('sent') === 'true') {
     load_mailbox('sent');
     localStorage.setItem('sent', 'false');
+  } else if (localStorage.getItem('archive') === 'true') {
+    load_mailbox('archive')
+    localStorage.setItem('archive', 'false')
   } else {
     load_mailbox('inbox');
   }
@@ -36,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
       currentPage++;
       if (localStorage.getItem('sent') === 'true') {
         load_mailbox('sent');
+      } else if (localStorage.getItem('archive') === 'true') {
+        load_mailbox('archive');
       } else {
         load_mailbox('inbox');
       }
@@ -48,6 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
       currentPage--;
       if (localStorage.getItem('sent') === 'true') {
         load_mailbox('sent');
+      } else if (localStorage.getItem('archive') === 'true') {
+        load_mailbox('archive');
       } else {
         load_mailbox('inbox');
       }
@@ -100,7 +108,9 @@ function load_mailbox(mailbox) {
 
   if (mailbox === 'sent') {
     localStorage.setItem('sent', 'true');
-  } else {
+    localStorage.setItem('archive', 'false')
+  } else if (mailbox === 'archive') {
+    localStorage.setItem('archive', 'true');
     localStorage.setItem('sent', 'false');
   }
 
@@ -125,7 +135,11 @@ function load_mailbox(mailbox) {
     const nowShowingDiv = document.querySelector('#now-showing');
     const firstEmailIndex = offset + 1;
     const lastEmailIndex = Math.min(offset + emailsPerPage, totalEmails);
-    nowShowingDiv.innerHTML = `${firstEmailIndex}-${lastEmailIndex} of ${totalEmails}`;
+    if (totalEmails === 0) {
+      nowShowingDiv.innerHTML = `0-0 of 0`;
+    } else {
+      nowShowingDiv.innerHTML = `${firstEmailIndex}-${lastEmailIndex} of ${totalEmails}`;
+    }
 
     let emailsToDisplay = emails.slice(offset, offset + emailsPerPage);
 
