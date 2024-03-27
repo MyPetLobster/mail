@@ -5,6 +5,9 @@ textarea {
 .hidden {
     display: none;
 }
+.flex {
+    display: flex;
+}
 
 
 
@@ -14,11 +17,16 @@ textarea {
     gap: 8px;
 }
 .checkbox {
-    width: 18px !important;
-    height: 18px !important;
+    width: 16px !important;
+    height: 16px !important;
     background-size: 20px !important;
     accent-color: rgb(51,168,82) !important;
 }
+.email-checkbox {
+    accent-color: rgb(51,168,82);
+}
+
+
 
 #envelope-icon-div {
     display: flex;
@@ -43,7 +51,7 @@ textarea {
 }
 
 .icon-circle-div {
-    margin-left: 8px;
+    margin: 0 0 0 8px;
     display: flex;
     align-items: center;
     justify-content: center;
