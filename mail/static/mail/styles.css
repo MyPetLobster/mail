@@ -13,6 +13,12 @@ textarea {
     align-items: center;
     gap: 8px;
 }
+.checkbox {
+    width: 18px !important;
+    height: 18px !important;
+    background-size: 20px !important;
+    accent-color: rgb(51,168,82) !important;
+}
 
 #envelope-icon-div {
     display: flex;
@@ -22,6 +28,7 @@ textarea {
 }
 .icon {
     cursor: pointer;
+    
 }
 #archive-icon {
     height: 20px;
@@ -29,9 +36,39 @@ textarea {
 }
 #closed-envelope-icon,
 #open-envelope-icon {
+    position: relative;
+    bottom: 1px;
     height: 18px;
     width: 18px;
 }
+
+.icon-circle-div {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+.icon-circle-div:hover {
+    cursor: pointer;
+    background-color: rgba(239, 239, 239, 0.75)
+}
+
+.icon-circle-div:hover .icon path,
+.icon-circle-div:hover .icon .rect-lines,
+.icon-circle-div:hover .icon line,
+.icon-circle-div:hover .icon polyline {
+    stroke: rgb(250,188,5);
+}
+.icon-circle-div:hover #closed-envelope-icon path {
+    fill: rgb(66,132,243);
+}
+.icon-circle-div:hover #open-envelope-icon path {
+    fill: rgb(51,168,82);
+}
+
 
 
 
