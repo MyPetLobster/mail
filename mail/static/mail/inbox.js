@@ -198,6 +198,8 @@ function load_mailbox(mailbox) {
       checkbox.style.height = '14px';
       checkbox.style.marginRight = '10px';
       checkbox.style.position = 'relative';
+      checkbox.style.zIndex = '1000';
+      checkbox.classList.add('email-checkbox');
 
       const rightSideDiv = document.createElement('div');
       rightSideDiv.classList.add('right-side-div');
@@ -208,9 +210,11 @@ function load_mailbox(mailbox) {
       email_div.appendChild(senderRecipientDiv);
       email_div.appendChild(rightSideDiv);
 
-
-      email_div.addEventListener('click', () => {
-        load_email(email.id);
+      // Add click event listener ignoring checkbox
+      email_div.addEventListener('click', (event) => {
+        if (event.target.type !== 'checkbox') {
+          load_email(email.id);
+        }
       });
 
       // Append the email to the emails-view

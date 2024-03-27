@@ -6,6 +6,36 @@ textarea {
     display: none;
 }
 
+
+
+.select-all-div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#envelope-icon-div {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    bottom: 1px;
+}
+.icon {
+    cursor: pointer;
+}
+#archive-icon {
+    height: 20px;
+    width: 20px;
+}
+#closed-envelope-icon,
+#open-envelope-icon {
+    height: 18px;
+    width: 18px;
+}
+
+
+
+
 body { 
     background-color: #eeeeee;
 }
@@ -242,3 +272,6 @@ body {
     text-decoration: none;
     color: rgb(51,168,82);
 }
+
+
+
