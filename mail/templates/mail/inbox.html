@@ -30,8 +30,8 @@
                 </div>
                 <div class="trash-icons">
                     <img id="trash-icon-01" class="trash-icon" src="../../static/mail/images/trash-01.png">
-                    <img id="trash-icon-02" class="trash-icon display-none" src="../../static/mail/images/trash-02.png">
-                    <img id="trash-icon-03" class="trash-icon display-none" src="../../static/mail/images/trash-03.png">
+                    <img id="trash-icon-02" class="trash-icon full-hidden" src="../../static/mail/images/trash-02.png">
+                    <img id="trash-icon-03" class="trash-icon full-hidden" src="../../static/mail/images/trash-03.png">
                 </div>
             </div>
         </div>
@@ -110,20 +110,20 @@
         const trashThree = document.querySelector('#trash-icon-03');
 
         trashDiv.addEventListener('mouseover', () => {
-            trashOne.classList.add('display-none');
-            trashTwo.classList.remove('display-none');
+            trashOne.classList.add('full-hidden');
+            trashTwo.classList.remove('full-hidden');
         })
         trashDiv.addEventListener('mouseout', () => {
-            trashTwo.classList.add('display-none');
-            trashOne.classList.remove('display-none');
+            trashTwo.classList.add('full-hidden');
+            trashOne.classList.remove('full-hidden');
         })
 
         trashDiv.addEventListener('mousedown', () => {
             trashTwo.style.display = 'none';
-            trashThree.classList.remove('display-none');
+            trashThree.classList.remove('full-hidden');
         })
         trashDiv.addEventListener('mouseup', () => {
-            trashThree.classList.add('display-none');
+            trashThree.classList.add('full-hidden');
             trashTwo.style.display = 'inherit';
         })
 
