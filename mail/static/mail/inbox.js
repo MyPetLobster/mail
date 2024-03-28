@@ -21,8 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
     load_mailbox('archive');
     localStorage.setItem('archive', 'true');
   });
-  document.querySelector('#compose-button').addEventListener('click', compose_email);
-
+  document.querySelector('#compose-button').addEventListener('click', () => {
+    minimizeCompose();
+    expandCompose();
+    closeCompose();
+    compose_email();
+  });
   // Compose form submit event
   document.querySelector('#compose-form').addEventListener('submit', () => {
     send_mail();
@@ -180,10 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-function compose_email() {
 
-  document.querySelector('#compose-view').style.display = 'inherit';
-  document.querySelector('#compose-floating-div').style.display = 'inherit';
+function compose_email() {
+  document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#compose-floating-div').style.display = 'block';
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
@@ -482,4 +486,49 @@ function showTrashOnly() {
   iconCircleDivs.forEach(iconCircleDiv => {
     iconCircleDiv.style.display = 'none';
   });
+}
+
+
+function minimizeCompose() {
+  const composeForm = document.querySelector('#compose-form');
+  const minimizeIcon = document.querySelector('#minimize-compose-icon');
+
+  minimizeIcon.addEventListener('click', (event) => {
+    alert('minimizeCompose');
+    if (composeForm.style.display === 'none') {
+      composeForm.style.display = 'flex';
+    } else {
+      composeForm.style.display = 'none';
+    }
+  });
+}
+
+function closeCompose() {
+  document.querySelector('#close-compose-icon').addEventListener('click', () => {
+    document.querySelector('#compose-view').style.display = 'none';
+    const composeFloatingDiv = document.querySelector('#compose-floating-div');
+    if (composeFloatingDiv.classList.contains('floating-div-fullscreen')) {
+      composeFloatingDiv.classList.remove('floating-div-fullscreen');
+    }
+    composeFloatingDiv.style.display = 'none';
+  });
+}
+
+function expandCompose() {
+  document.querySelector('#expand-compose-icon').addEventListener('click', () => {
+    document.querySelector('#compose-view').style.display = 'block';
+    const composeFloatingDiv = document.querySelector('#compose-floating-div');
+    if (composeFloatingDiv.classList.contains('floating-div-fullscreen')) {
+      composeFloatingDiv.classList.remove('floating-div-fullscreen');
+    } else {
+      composeFloatingDiv.classList.add('floating-div-fullscreen');
+    }
+  });
+}
+
+// Function to set up event listeners for compose form
+function setupComposeListeners() {
+    minimizeCompose();
+    expandCompose();
+    closeCompose();
 }

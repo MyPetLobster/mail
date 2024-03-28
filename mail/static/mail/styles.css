@@ -378,10 +378,34 @@ body {
     height: auto;
     width: 500px;
     background-color: rgb(255, 255, 255);
-    z-index: 100;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.285);
+    z-index: 9999;
+}
+.floating-div-fullscreen {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    border-radius: 16px !important;
+    display: inherit !important;
+    height: 80vh !important;
+    width: 75vw !important;
+    right: 0 !important;
+}
+.floating-div-fullscreen #compose-top-bar {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+.floating-div-fullscreen #compose-form {
+    height: 100% !important;
+    width: 100% !important;
+}
+.floating-div-fullscreen #compose-form #compose-body {
+    height: 100% !important;
 }
 #compose-form {
     display: flex;
@@ -410,7 +434,7 @@ body {
     outline: none !important;
 }
 #compose-body {
-    height: 300px !important;
+    height: 300px;
     width: 100%;
     padding: 12px !important;
 }
@@ -419,6 +443,8 @@ body {
 }
 
 #compose-btn-div {
+    position: absolute;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -445,6 +471,9 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.compose-icon {
+    cursor: pointer;
 }
 #minimize-compose-icon {
     height: 12px;
