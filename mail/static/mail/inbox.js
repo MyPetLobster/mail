@@ -6,9 +6,11 @@ let totalEmails = 0;
 document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
+    document.querySelector('#select-all-checkbox').checked = false;
     load_mailbox('inbox');
   });
   document.querySelector('#sent-link').addEventListener('click', () => {
+    document.querySelector('#select-all-checkbox').checked = false;
     load_mailbox('sent');
   });
   document.querySelector('#archive-link').addEventListener('click', () => {

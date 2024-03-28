@@ -2,6 +2,14 @@ textarea {
     min-height: 400px;
 }
 
+.display-none {
+    opacity: 0;
+    width: 0 !important;
+    height: 0 !important;
+    position:absolute !important;
+    bottom: 0 !important;
+}
+
 .hidden {
     opacity: 0;
     width: 0;
@@ -13,6 +21,16 @@ textarea {
 .flex {
     display: flex;
 }
+
+
+.trash-icon {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    bottom: 2px;
+}
+
+
 
 
 
@@ -38,7 +56,7 @@ textarea {
 
 #envelope-icon-div {
     display: flex;
-    gap: 8px;
+    margin-right: 8px;
     position: relative;
     bottom: 1px;
 }
@@ -58,7 +76,13 @@ textarea {
     width: 18px;
 }
 
-.icon-circle-div {
+.trash-icons {
+    position: relative;
+    bottom: 4px;
+    right: 6px
+}
+.icon-circle-div,
+.trash-icons {
     margin: 0 0 0 8px;
     display: flex;
     align-items: center;
@@ -67,7 +91,8 @@ textarea {
     height: 40px;
     width: 40px;
 }
-.icon-circle-div:hover {
+.icon-circle-div:hover,
+.trash-icons:hover {
     cursor: pointer;
     background-color: rgba(239, 239, 239, 0.75)
 }
