@@ -2,6 +2,7 @@
 let currentPage = 1;
 let emailsPerPage = 10;
 let totalEmails = 0;
+let listenersLoaded = false;
 
 document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
@@ -22,9 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('archive', 'true');
   });
   document.querySelector('#compose-button').addEventListener('click', () => {
-    minimizeCompose();
-    expandCompose();
-    closeCompose();
+    if (!listenersLoaded) {
+      minimizeCompose();
+      expandCompose();
+      closeCompose();
+    }
+    listenersLoaded = true;
     compose_email();
   });
   // Compose form submit event
@@ -186,6 +190,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function compose_email() {
+  const composeForm = document.querySelector('#compose-form');
+  if (composeForm.style.display === 'none') {
+    composeForm.style.display = 'flex';
+  }
+  
   document.querySelector('#compose-view').style.display = 'block';
   document.querySelector('#compose-floating-div').style.display = 'block';
   // Clear out composition fields
@@ -492,14 +501,18 @@ function showTrashOnly() {
 function minimizeCompose() {
   const composeForm = document.querySelector('#compose-form');
   const minimizeIcon = document.querySelector('#minimize-compose-icon');
+  const composeFloatingDiv = document.querySelector('#compose-floating-div');
 
-  minimizeIcon.addEventListener('click', (event) => {
-    alert('minimizeCompose');
+  minimizeIcon.addEventListener('click', () => {
+    if (composeFloatingDiv.classList.contains('floating-div-fullscreen')) {
+      composeFloatingDiv.classList.remove('floating-div-fullscreen');
+    }
     if (composeForm.style.display === 'none') {
       composeForm.style.display = 'flex';
     } else {
       composeForm.style.display = 'none';
     }
+    
   });
 }
 
@@ -516,6 +529,8 @@ function closeCompose() {
 
 function expandCompose() {
   document.querySelector('#expand-compose-icon').addEventListener('click', () => {
+    const composeForm = document.querySelector('#compose-form');
+    composeForm.style.display = 'flex';
     document.querySelector('#compose-view').style.display = 'block';
     const composeFloatingDiv = document.querySelector('#compose-floating-div');
     if (composeFloatingDiv.classList.contains('floating-div-fullscreen')) {
@@ -524,11 +539,4 @@ function expandCompose() {
       composeFloatingDiv.classList.add('floating-div-fullscreen');
     }
   });
-}
-
-// Function to set up event listeners for compose form
-function setupComposeListeners() {
-    minimizeCompose();
-    expandCompose();
-    closeCompose();
 }
