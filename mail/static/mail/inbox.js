@@ -6,14 +6,15 @@ let totalEmails = 0;
 document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
-    document.querySelector('#select-all-checkbox').checked = false;
+    resetSelectAll();
     load_mailbox('inbox');
   });
   document.querySelector('#sent-link').addEventListener('click', () => {
-    document.querySelector('#select-all-checkbox').checked = false;
+    resetSelectAll();
     load_mailbox('sent');
   });
   document.querySelector('#archive-link').addEventListener('click', () => {
+    resetSelectAll();
     load_mailbox('archive');
     localStorage.setItem('archive', 'true');
   });
@@ -394,12 +395,21 @@ function load_email(email_id) {
 
 
 
+function resetSelectAll() {
+  const selectAllCheckbox = document.querySelector('#select-all-checkbox');
+  selectAllCheckbox.checked = false;
+
+  const selectAllText = document.querySelector('#select-all-text');
+  const allIconsDiv = document.querySelector('#all-icons-div');
+  selectAllText.classList.remove('hidden');
+  allIconsDiv.classList.add('hidden');
+}
 
 function showHideIcons() {
   const selectAllText = document.querySelector('#select-all-text');
   const allIconsDiv = document.querySelector('#all-icons-div');
   const selectAllCheckbox = document.querySelector('#select-all-checkbox');
-
+  
   selectAllText.classList.add('hidden');
   allIconsDiv.classList.remove('hidden');
      
