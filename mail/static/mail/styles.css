@@ -1,6 +1,9 @@
 textarea {
     min-height: 400px;
 }
+.display-none {
+    display: none;
+}
 
 .full-hidden {
     opacity: 0;
@@ -30,6 +33,23 @@ textarea {
     bottom: 2px;
 }
 
+.shrink-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 50% !important;
+}
+.shrink-button>svg {
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
+.shrink-navbar {
+    width: 80px !important;
+}
 
 
 
@@ -125,8 +145,9 @@ body {
     margin: 0;
 }
 
-.container {
+.main-container {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     padding-right: 0;
     margin-right: 0;
@@ -222,13 +243,16 @@ body {
 
 
 .page-content {
-    display: grid;
-    grid-template-columns: 1fr 6fr;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-grow: 1;
 }
+
 
 #navbar-nav,
 .navbar {
-    width: auto;
+    width: 200px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -291,7 +315,6 @@ body {
 
 
 
-
 #compose-button {
     width: 150px;
     text-align: center;
@@ -338,14 +361,26 @@ body {
 #inbox-link:hover {
     color: rgb(51,168,82);
 }
+#inbox-link:hover>svg>path {
+    fill: rgb(51,168,82);
+}
 #sent-link:hover {
     color: rgb(66,132,243);
+}
+#sent-link:hover>svg>path {
+    fill: rgb(66,132,243);
 }
 #archive-link:hover {
     color: rgb(250,188,5);
 }
+#archive-link:hover>svg>path {
+    fill: rgb(250,188,5);
+}
 #logout-link:hover {
     color: rgb(197,34,31);
+}
+#logout-link:hover>svg>path {
+    fill: rgb(197,34,31);
 }
 
 
