@@ -34,6 +34,7 @@ textarea {
 
 
 
+
 .select-all-div {
     display: flex;
     align-items: center;
@@ -233,7 +234,27 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
 }
+
+.nav-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}
+#logout-link {
+    position: relative;
+    left: 3px;
+}
+.logout-nav-icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+
+
 .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
 }
 
