@@ -182,11 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function compose_email() {
 
-  // Show compose view and hide other views
-  document.querySelector('#emails-view').style.display = 'none';
-  document.querySelector('#email-view').style.display = 'none';
-  document.querySelector('#compose-view').style.display = 'block';
-
+  document.querySelector('#compose-view').style.display = 'inherit';
+  document.querySelector('#compose-floating-div').style.display = 'inherit';
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
