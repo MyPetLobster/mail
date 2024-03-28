@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const archiveIcon = document.querySelector('#archive-icon');
   const closedEnvelopeIcon = document.querySelector('#closed-envelope-icon');
   const openEnvelopeIcon = document.querySelector('#open-envelope-icon');
+  const trashIcon = document.querySelector('.trash-icons');
 
   archiveIcon.onclick = () => {
     const emailCheckboxes = document.querySelectorAll('.email-checkbox');
@@ -126,26 +127,57 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             load_mailbox('inbox');
         }
-    });
+    }, 100);
   };
 
   openEnvelopeIcon.onclick = () => {
-      const emails = document.querySelectorAll('.email-checkbox');
-      let selectedEmails = [];
-      emails.forEach(email => {
-          if (email.checked) {
-              selectedEmails.push(email);
-          }
-      });
-      selectedEmails.forEach(email => {
-          fetch(`/emails/${email}`, {
-              method: 'PUT',
-              body: JSON.stringify({
-                  read: false
-              })
-          });
-      });
-  };
+    const emailCheckboxes = document.querySelectorAll('.email-checkbox');
+    let selectedEmails = [];
+    selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
+    selectedEmails.forEach(checkbox => {
+        const emailID = checkbox.nextSibling.value;
+        fetch(`/emails/${emailID}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                read: false
+            })
+        });
+    });
+  
+    setTimeout(() => {
+        if (localStorage.getItem('sent') === 'true') {
+            load_mailbox('sent');
+        } else if (localStorage.getItem('archive') === 'true') {
+            load_mailbox('archive');
+        } else {
+            load_mailbox('inbox');
+        }
+    }, 100);
+  }
+
+  trashIcon.addEventListener('mouseup', () => {
+    const emailCheckboxes = document.querySelectorAll('.email-checkbox');
+    let selectedEmails = [];
+    selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
+    if (selectedEmails.length === 1) {
+      alert("Email Deleted");
+    } else {
+      alert("Emails Deleted");
+    }
+    // selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
+    // selectedEmails.forEach(checkbox => {
+    // });
+  
+    setTimeout(() => {
+        if (localStorage.getItem('sent') === 'true') {
+            load_mailbox('sent');
+        } else if (localStorage.getItem('archive') === 'true') {
+            load_mailbox('archive');
+        } else {
+            load_mailbox('inbox');
+        }
+    }, 100);
+  });
 });
 
 function compose_email() {
