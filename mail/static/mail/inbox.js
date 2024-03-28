@@ -1,6 +1,6 @@
 // Set the current page and emails per page
 let currentPage = 1;
-let emailsPerPage = 10;
+let emailsPerPage = 25;
 let totalEmails = 0;
 let listenersLoaded = false;
 
@@ -168,9 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedEmails = [];
     selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
     if (selectedEmails.length === 1) {
-      alert("Email Deleted");
+      alert("Email moved to trash");
     } else {
-      alert("Emails Deleted");
+      alert(`${selectedEmails.length} emails moved to trash`);
     }
     // selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
     // selectedEmails.forEach(checkbox => {
