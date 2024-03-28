@@ -194,7 +194,7 @@ function compose_email() {
   if (composeForm.style.display === 'none') {
     composeForm.style.display = 'flex';
   }
-  
+
   document.querySelector('#compose-view').style.display = 'block';
   document.querySelector('#compose-floating-div').style.display = 'block';
   // Clear out composition fields
@@ -209,7 +209,7 @@ function send_mail() {
   // Get the values of the email form
   const recipients = document.querySelector('#compose-recipients').value;
   const subject = document.querySelector('#compose-subject').value;
-  const body = document.querySelector('#compose-body').value;
+  const body = document.querySelector('#compose-body').innerHTML;
 
   // Send the email
   fetch('/emails', {
