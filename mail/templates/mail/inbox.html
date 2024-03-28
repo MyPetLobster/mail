@@ -5,7 +5,7 @@
 
     <div class="email-div-header">
         <div class="select-all-div">
-            <input class="checkbox" type="checkbox" id="select-all"><span id="select-all-text">Select All</span>
+            <input class="checkbox" type="checkbox" id="select-all-checkbox"><span id="select-all-text">Select All</span>
             <div id="all-icons-div" class="hidden">
                 <div class="icon-circle-div">
                     <svg id="archive-icon" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -63,18 +63,23 @@
 
     <div id="email-view"></div>
     <script>
-        const selectAllCheckbox = document.querySelector('#select-all');
+        const selectAllCheckbox = document.querySelector('#select-all-checkbox');
         const allIconsDiv = document.querySelector('#all-icons-div');
         const selectAllText = document.querySelector('#select-all-text');
 
         selectAllCheckbox.onclick = () => {
-            selectAllText.classList.toggle('hidden');
-            allIconsDiv.classList.toggle('hidden');
-            allIconsDiv.classList.toggle('flex');
-            const checkboxes = document.querySelectorAll('.email-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = selectAllCheckbox.checked;
-            });
+            const allCheckboxes = document.querySelectorAll('.email-checkbox');
+            const selectCount = document.querySelectorAll('.email-checkbox:checked').length;
+            if (selectAllCheckbox.checked) {
+                allIconsDiv.classList.remove('hidden');
+                selectAllText.classList.add('hidden');
+                allCheckboxes.forEach(checkbox => checkbox.checked = true);
+            } else {
+                allIconsDiv.classList.add('hidden');
+                selectAllText.classList.remove('hidden');
+                allCheckboxes.forEach(checkbox => checkbox.checked = false);
+            }
+            
         };
     </script>
 {% endblock %}

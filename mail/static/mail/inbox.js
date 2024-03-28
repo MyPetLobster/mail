@@ -61,6 +61,80 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+
+  // Select All, checkboxes, and batch processing
+  const archiveIcon = document.querySelector('#archive-icon');
+  const closedEnvelopeIcon = document.querySelector('#closed-envelope-icon');
+  const openEnvelopeIcon = document.querySelector('#open-envelope-icon');
+
+  archiveIcon.onclick = () => {
+    
+    const emailCheckboxes = document.querySelectorAll('.email-checkbox');
+    let selectedEmails = [];
+    selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
+
+    selectedEmails.forEach(checkbox => {
+        const emailID = checkbox.nextSibling.value;
+        
+        fetch(`/emails/${emailID}`)
+        .then(response => response.json())
+        .then(email => {
+            fetch(`/emails/${emailID}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    archived: !email.archived
+                })
+            });
+        }); 
+    });
+
+    setTimeout(() => {
+        if (localStorage.getItem('sent') === 'true') {
+            load_mailbox('sent');
+        } else if (localStorage.getItem('archive') === 'true') {
+            load_mailbox('archive');
+        } else {
+            load_mailbox('inbox');
+        }
+    }, 100);
+  
+  };
+
+  closedEnvelopeIcon.onclick = () => {
+      const emails = document.querySelectorAll('.email-checkbox');
+      let selectedEmails = [];
+      emails.forEach(email => {
+          if (email.checked) {
+              selectedEmails.push(email);
+          }
+      });
+      selectedEmails.forEach(email => {
+          fetch(`/emails/${email}`, {
+              method: 'PUT',
+              body: JSON.stringify({
+                  read: true
+              })
+          });
+      });
+  };
+
+  openEnvelopeIcon.onclick = () => {
+      const emails = document.querySelectorAll('.email-checkbox');
+      let selectedEmails = [];
+      emails.forEach(email => {
+          if (email.checked) {
+              selectedEmails.push(email);
+          }
+      });
+      selectedEmails.forEach(email => {
+          fetch(`/emails/${email}`, {
+              method: 'PUT',
+              body: JSON.stringify({
+                  read: false
+              })
+          });
+      });
+  };
 });
 
 function compose_email() {
@@ -131,6 +205,11 @@ function load_mailbox(mailbox) {
   .then(emails => {
     totalEmails = emails.length; // Update total number of emails
     
+    if (totalEmails === 0) {
+      document.querySelector('.select-all-div').classList.add('hidden-flat');
+    } else {
+      document.querySelector('.select-all-div').classList.remove('hidden-flat');
+    }
     // Update display text
     const nowShowingDiv = document.querySelector('#now-showing');
     const firstEmailIndex = offset + 1;
@@ -200,13 +279,21 @@ function load_mailbox(mailbox) {
       checkbox.style.position = 'relative';
       checkbox.style.zIndex = '1000';
       checkbox.classList.add('email-checkbox');
+      checkbox.addEventListener('click', showHideIcons);
 
       const rightSideDiv = document.createElement('div');
       rightSideDiv.classList.add('right-side-div');
       rightSideDiv.appendChild(subjectDiv);
       rightSideDiv.appendChild(timestampDiv);
 
+      const hiddenEmailId = document.createElement('input');
+      hiddenEmailId.type = 'hidden';
+      hiddenEmailId.value = email.id;
+      hiddenEmailId.classList.add('email-id');
+
+
       email_div.appendChild(checkbox);
+      email_div.appendChild(hiddenEmailId);
       email_div.appendChild(senderRecipientDiv);
       email_div.appendChild(rightSideDiv);
 
@@ -222,6 +309,7 @@ function load_mailbox(mailbox) {
     });
   });
 
+  
 }
 
 
@@ -275,6 +363,7 @@ function load_email(email_id) {
       archive_button.innerHTML = 'Archive';
     }
 
+
     archive_button.addEventListener('click', () => {
       archived = !email.archived;
       fetch(`/emails/${email_id}`, {
@@ -301,3 +390,33 @@ function load_email(email_id) {
 }
 
 
+
+
+
+function showHideIcons() {
+  const selectAllText = document.querySelector('#select-all-text');
+  const allIconsDiv = document.querySelector('#all-icons-div');
+  const selectAllCheckbox = document.querySelector('#select-all-checkbox');
+
+  selectAllText.classList.add('hidden');
+  allIconsDiv.classList.remove('hidden');
+     
+  const checkboxes = document.querySelectorAll('.email-checkbox');
+  let checkedCount = 0;
+  checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+          checkedCount++;
+      }
+  });
+  if (checkedCount === 0) {
+      const selectAllText = document.querySelector('#select-all-text');
+      const allIconsDiv = document.querySelector('#all-icons-div');
+      selectAllText.classList.remove('hidden');
+      allIconsDiv.classList.add('hidden');
+      selectAllCheckbox.checked = false;
+  } else if (checkedCount === checkboxes.length) {
+      selectAllCheckbox.checked = true;
+  } else if (checkedCount < checkboxes.length) {
+      selectAllCheckbox.checked = false;
+  }
+}
