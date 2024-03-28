@@ -7,14 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
     resetSelectAll();
+    showAllIcons();
     load_mailbox('inbox');
   });
   document.querySelector('#sent-link').addEventListener('click', () => {
     resetSelectAll();
+    showTrashOnly();
     load_mailbox('sent');
   });
   document.querySelector('#archive-link').addEventListener('click', () => {
     resetSelectAll();
+    showAllIcons();
     load_mailbox('archive');
     localStorage.setItem('archive', 'true');
   });
@@ -71,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const openEnvelopeIcon = document.querySelector('#open-envelope-icon');
 
   archiveIcon.onclick = () => {
-    
     const emailCheckboxes = document.querySelectorAll('.email-checkbox');
     let selectedEmails = [];
     selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
@@ -100,25 +102,31 @@ document.addEventListener('DOMContentLoaded', function() {
             load_mailbox('inbox');
         }
     }, 100);
-  
   };
 
   closedEnvelopeIcon.onclick = () => {
-      const emails = document.querySelectorAll('.email-checkbox');
-      let selectedEmails = [];
-      emails.forEach(email => {
-          if (email.checked) {
-              selectedEmails.push(email);
-          }
-      });
-      selectedEmails.forEach(email => {
-          fetch(`/emails/${email}`, {
-              method: 'PUT',
-              body: JSON.stringify({
-                  read: true
-              })
-          });
-      });
+    const emailCheckboxes = document.querySelectorAll('.email-checkbox');
+    let selectedEmails = [];
+    selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
+    selectedEmails.forEach(checkbox => {
+        const emailID = checkbox.nextSibling.value;
+        fetch(`/emails/${emailID}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                read: true
+            })
+        });
+    });
+  
+    setTimeout(() => {
+        if (localStorage.getItem('sent') === 'true') {
+            load_mailbox('sent');
+        } else if (localStorage.getItem('archive') === 'true') {
+            load_mailbox('archive');
+        } else {
+            load_mailbox('inbox');
+        }
+    });
   };
 
   openEnvelopeIcon.onclick = () => {
@@ -431,4 +439,18 @@ function showHideIcons() {
   } else if (checkedCount < checkboxes.length) {
       selectAllCheckbox.checked = false;
   }
+}
+
+
+function showAllIcons() {
+  const iconCircleDivs = document.querySelectorAll('.icon-circle-div');
+  iconCircleDivs.forEach(iconCircleDiv => {
+    iconCircleDiv.style.display = 'inherit';
+  });
+}
+function showTrashOnly() {
+  const iconCircleDivs = document.querySelectorAll('.icon-circle-div');
+  iconCircleDivs.forEach(iconCircleDiv => {
+    iconCircleDiv.style.display = 'none';
+  });
 }
