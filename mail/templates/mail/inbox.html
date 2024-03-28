@@ -104,6 +104,13 @@
         trashDiv.addEventListener('mousedown', () => {
             trashTwo.style.display = 'none';
             trashThree.classList.remove('display-none');
+            // if mouse pointer moves out of trash icon, trash icon should return to trashOne
+            trashDiv.addEventListener('mouseout', () => {
+                trashTwo.style.display = 'block';
+                trashThree.classList.add('display-none');
+                trashOne.classList.remove('display-none');
+            })
+
         })
         trashDiv.addEventListener('mouseup', () => {
             trashThree.classList.add('display-none');
