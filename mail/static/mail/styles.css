@@ -191,7 +191,7 @@ body {
     padding-right: 0;
     margin-right: 0;
     max-height: 100vh;
-    transition-duration: 750ms;
+    transition-duration: 350ms;
 }
 .margin-left-48 {
     margin-left: 48px;

@@ -170,6 +170,91 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 100);
   });
+
+  // if user clicks on search bar, make the entire div a few pixels larger and make the background of the search bar and div white (.search-bar and #search)
+
+  const search = document.querySelector('#search');
+  const searchBar = document.querySelector('.search-bar');
+
+  search.addEventListener('click', () => {
+      searchBar.style.backgroundColor = 'white';
+      search.style.backgroundColor = 'white';
+  });
+  // if user clicks anywhere else on page set background color of search bar and div back to original color #d5d5d5
+  document.addEventListener('click', (e) => {
+      if (e.target !== search) {
+          searchBar.style.backgroundColor = '#d5d5d5';
+          search.style.backgroundColor = '#d5d5d5';
+      }
+  });
+  
+  const hamburger = document.querySelector('#hamburger');
+  const navTextSpans = document.querySelectorAll('.nav-text');
+
+  hamburger.addEventListener('click', () => {
+      navTextSpans.forEach(span => {
+          span.classList.toggle('display-none');
+      });
+      const gmailLogo = document.querySelector('#gmail-logo');
+      gmailLogo.classList.toggle('display-none');
+
+      const composeButton = document.querySelector('#compose-button');
+      composeButton.classList.toggle('shrink-button');
+
+      const navbar = document.querySelector('#base-nav-div');
+      navbar.classList.toggle('shrink-navbar');
+      const bottomNavbar = document.querySelector('#bottom-navbar');
+      bottomNavbar.classList.toggle('shrink-navbar');
+      const navUl = document.querySelector('#navbar-nav');
+      navUl.classList.toggle('shrink-navbar');
+
+      document.querySelector('.main-container').classList.toggle('margin-left-48');
+  });
+
+
+
+  const selectAllCheckbox = document.querySelector('#select-all-checkbox');
+  const allIconsDiv = document.querySelector('#all-icons-div');
+  const selectAllText = document.querySelector('#select-all-text');
+
+  selectAllCheckbox.onclick = () => {
+      const allCheckboxes = document.querySelectorAll('.email-checkbox');
+      const selectCount = document.querySelectorAll('.email-checkbox:checked').length;
+      if (selectAllCheckbox.checked) {
+          allIconsDiv.classList.remove('hidden');
+          selectAllText.classList.add('hidden');
+          allCheckboxes.forEach(checkbox => checkbox.checked = true);
+      } else {
+          allIconsDiv.classList.add('hidden');
+          selectAllText.classList.remove('hidden');
+          allCheckboxes.forEach(checkbox => checkbox.checked = false);
+      }
+      
+  };
+
+  const trashDiv = document.querySelector('.trash-icons');
+  const trashOne = document.querySelector('#trash-icon-01');
+  const trashTwo = document.querySelector('#trash-icon-02');
+  const trashThree = document.querySelector('#trash-icon-03');
+
+  trashDiv.addEventListener('mouseover', () => {
+      trashOne.classList.add('full-hidden');
+      trashTwo.classList.remove('full-hidden');
+  })
+  trashDiv.addEventListener('mouseout', () => {
+      trashTwo.classList.add('full-hidden');
+      trashOne.classList.remove('full-hidden');
+  })
+
+  trashDiv.addEventListener('mousedown', () => {
+      trashTwo.style.display = 'none';
+      trashThree.classList.remove('full-hidden');
+  })
+  trashDiv.addEventListener('mouseup', () => {
+      trashThree.classList.add('full-hidden');
+      trashTwo.style.display = 'inherit';
+  })
+  
 });
 
 function switchToMailboxArrows() {

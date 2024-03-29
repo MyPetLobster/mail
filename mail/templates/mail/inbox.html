@@ -90,50 +90,6 @@
     </div>
 
     <div id="email-view"></div>
-    <script>
-        const selectAllCheckbox = document.querySelector('#select-all-checkbox');
-        const allIconsDiv = document.querySelector('#all-icons-div');
-        const selectAllText = document.querySelector('#select-all-text');
-
-        selectAllCheckbox.onclick = () => {
-            const allCheckboxes = document.querySelectorAll('.email-checkbox');
-            const selectCount = document.querySelectorAll('.email-checkbox:checked').length;
-            if (selectAllCheckbox.checked) {
-                allIconsDiv.classList.remove('hidden');
-                selectAllText.classList.add('hidden');
-                allCheckboxes.forEach(checkbox => checkbox.checked = true);
-            } else {
-                allIconsDiv.classList.add('hidden');
-                selectAllText.classList.remove('hidden');
-                allCheckboxes.forEach(checkbox => checkbox.checked = false);
-            }
-            
-        };
-
-        const trashDiv = document.querySelector('.trash-icons');
-        const trashOne = document.querySelector('#trash-icon-01');
-        const trashTwo = document.querySelector('#trash-icon-02');
-        const trashThree = document.querySelector('#trash-icon-03');
-
-        trashDiv.addEventListener('mouseover', () => {
-            trashOne.classList.add('full-hidden');
-            trashTwo.classList.remove('full-hidden');
-        })
-        trashDiv.addEventListener('mouseout', () => {
-            trashTwo.classList.add('full-hidden');
-            trashOne.classList.remove('full-hidden');
-        })
-
-        trashDiv.addEventListener('mousedown', () => {
-            trashTwo.style.display = 'none';
-            trashThree.classList.remove('full-hidden');
-        })
-        trashDiv.addEventListener('mouseup', () => {
-            trashThree.classList.add('full-hidden');
-            trashTwo.style.display = 'inherit';
-        })
-
-    </script>
 {% endblock %}
 
 {% block script %}
