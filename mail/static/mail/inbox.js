@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
     load_mailbox('archive');
     localStorage.setItem('archive', 'true');
   });
-  document.querySelector('#compose-button').addEventListener('click', () => {
+
+  document.querySelector('#compose-button').addEventListener('mouseup', () => {
     if (!listenersLoaded) {
       minimizeCompose();
       expandCompose();
@@ -50,6 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     load_mailbox('inbox');
   }
+
+  document.querySelector('#search').addEventListener('keyup', (key) => {
+    if (key.keyCode === 13) {
+      alert('Search not yet implemented');
+      document.querySelector('#search').value = '';
+    }
+  });
 
 
   // Select All, checkboxes, and batch processing
@@ -216,7 +224,7 @@ function compose_email() {
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
-  document.querySelector('#compose-body').value = '';
+  document.querySelector('#compose-body').innerHTML = '';
 }
 
 
@@ -472,15 +480,13 @@ function load_email(email_id, listOfAllEmails) {
   fetch(`/emails/${email_id}`)
   .then(response => response.json())
   .then(email => {
-    // Print email
-    console.log(email);
 
     // Create a div for the email
     const emailDiv = document.createElement('div');
     emailDiv.innerHTML = `
       <div class="email-content-div">
         <div class="content-header">
-          <div class="profile-pic-container profile-picture-email">
+          <div id="profile-picture-email" class="profile-pic-container">
             <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
           </div>
           <div class="content-subject">${email.subject}</div>
@@ -525,7 +531,8 @@ function load_email(email_id, listOfAllEmails) {
         document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
       }
       document.querySelector('#compose-recipients').value = email.sender;
-      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+      document.querySelector('#compose-body').innerHTML = `<br><br><div>On ${email.timestamp} ${email.sender} wrote:</div> <p class="reply-body">${email.body}</p>`;
+      
     });
 
     // Create forward btn

@@ -83,7 +83,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="main-container">
+            <div class="main-container margin-left-48">
                 <div class="top-container">
                     <div class="search-bar">
                         <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@
                             {% if request.user.profile_picture %}
                                 <img class="profile-picture" src="{{ request.user.profile_picture }}">
                             {% else %}
-                                <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
+                                <img class="profile-picture" src="https://i.imgur.com/HQk6Yso.jpg">
                             {% endif %}
                         </a>
                     </div>
@@ -147,6 +147,8 @@
                 bottomNavbar.classList.toggle('shrink-navbar');
                 const navUl = document.querySelector('#navbar-nav');
                 navUl.classList.toggle('shrink-navbar');
+
+                document.querySelector('.main-container').classList.toggle('margin-left-48');
             });
         </script>
     </body>
