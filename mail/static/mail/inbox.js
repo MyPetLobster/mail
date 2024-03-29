@@ -7,16 +7,19 @@ let listenersLoaded = false;
 document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
+    switchToMailboxArrows();
     resetSelectAll();
     showAllIcons();
     load_mailbox('inbox');
   });
   document.querySelector('#sent-link').addEventListener('click', () => {
+    switchToMailboxArrows();
     resetSelectAll();
     showTrashOnly();
     load_mailbox('sent');
   });
   document.querySelector('#archive-link').addEventListener('click', () => {
+    switchToMailboxArrows();
     resetSelectAll();
     showAllIcons();
     load_mailbox('archive');
@@ -48,33 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
     load_mailbox('inbox');
   }
 
-  // Event listener for right arrow button
-  document.querySelector('#right-arrow').addEventListener('click', () => {
-    if ((currentPage * emailsPerPage) < totalEmails) {
-      currentPage++;
-      if (localStorage.getItem('sent') === 'true') {
-        load_mailbox('sent');
-      } else if (localStorage.getItem('archive') === 'true') {
-        load_mailbox('archive');
-      } else {
-        load_mailbox('inbox');
-      }
-    }
-  });
-
-  // Event listener for left arrow button
-  document.querySelector('#left-arrow').addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      if (localStorage.getItem('sent') === 'true') {
-        load_mailbox('sent');
-      } else if (localStorage.getItem('archive') === 'true') {
-        load_mailbox('archive');
-      } else {
-        load_mailbox('inbox');
-      }
-    }
-  });
 
   // Select All, checkboxes, and batch processing
   const archiveIcon = document.querySelector('#archive-icon');
@@ -188,6 +164,46 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function switchToMailboxArrows() {
+    const leftArrow = document.querySelector('#left-arrow');
+    const rightArrow = document.querySelector('#right-arrow');
+    leftArrow.style.display = 'block';
+    rightArrow.style.display = 'block';
+
+    // Remove onclick event from email arrows 
+    rightArrow.removeAttribute('onclick');
+    leftArrow.removeAttribute('onclick');
+    // Add onclick event to mailbox arrows
+    rightArrow.onclick = () => handleRightArrowMailbox();
+    leftArrow.onclick = () => handleLeftArrowMailbox();
+}
+
+function handleLeftArrowMailbox() {
+  if (currentPage > 1) {
+    currentPage--;
+    if (localStorage.getItem('sent') === 'true') {
+      load_mailbox('sent');
+    } else if (localStorage.getItem('archive') === 'true') {
+      load_mailbox('archive');
+    } else {
+      load_mailbox('inbox');
+    }
+  }
+}
+
+function handleRightArrowMailbox() {
+  if ((currentPage * emailsPerPage) < totalEmails) {
+    currentPage++;
+    if (localStorage.getItem('sent') === 'true') {
+      load_mailbox('sent');
+    } else if (localStorage.getItem('archive') === 'true') {
+      load_mailbox('archive');
+    } else {
+      load_mailbox('inbox');
+    }
+  }
+}
+
 
 function compose_email() {
   const composeForm = document.querySelector('#compose-form');
@@ -232,7 +248,6 @@ function send_mail() {
 
 
 function load_mailbox(mailbox) {
-
   if (mailbox === 'sent') {
     localStorage.setItem('sent', 'true');
     localStorage.setItem('archive', 'false')
@@ -274,6 +289,11 @@ function load_mailbox(mailbox) {
     }
 
     let emailsToDisplay = emails.slice(offset, offset + emailsPerPage);
+
+    const listOfAllEmails = []
+    emails.forEach(email => {
+      listOfAllEmails.push(email.id);
+    });
 
     // Loop through the emails
     emailsToDisplay.forEach(email => {
@@ -344,6 +364,11 @@ function load_mailbox(mailbox) {
       hiddenEmailId.value = email.id;
       hiddenEmailId.classList.add('email-id');
 
+      const hiddenListOfAllEmails = document.createElement('input');
+      hiddenListOfAllEmails.type = 'hidden';
+      hiddenListOfAllEmails.value = listOfAllEmails;
+      hiddenListOfAllEmails.classList.add('list-of-all-emails');
+
 
       email_div.appendChild(checkbox);
       email_div.appendChild(hiddenEmailId);
@@ -353,7 +378,7 @@ function load_mailbox(mailbox) {
       // Add click event listener ignoring checkbox
       email_div.addEventListener('click', (event) => {
         if (event.target.type !== 'checkbox') {
-          load_email(email.id);
+          load_email(email.id, listOfAllEmails);
         }
       });
 
@@ -366,14 +391,53 @@ function load_mailbox(mailbox) {
 }
 
 
-function load_email(email_id) {
+function load_email(email_id, listOfAllEmails) {
+  // Remove listeners for mailbox arrow functions
+  document.querySelector('#right-arrow').removeAttribute('onclick');
+  document.querySelector('#left-arrow').removeAttribute('onclick');
+
+  // Clear the email-view
+  document.querySelector('#email-view').innerHTML = '';
+
   // Show the email-view and hide other views
+  const nowShowingDiv = document.querySelector('#now-showing');
+  const totalEmails = listOfAllEmails.length;
+  const currentEmailIndex = listOfAllEmails.indexOf(email_id) + 1;
+  nowShowingDiv.innerHTML = `${currentEmailIndex} of ${totalEmails}`;
+
+  const leftArrow = document.querySelector('#left-arrow');
+  const rightArrow = document.querySelector('#right-arrow');
+
+  if (currentEmailIndex === 1) {
+    leftArrow.style.display = 'none';
+  } else {
+    leftArrow.style.display = 'block';
+  }
+
+  if (currentEmailIndex === totalEmails) {
+    rightArrow.style.display = 'none';
+  } else {
+    rightArrow.style.display = 'block';
+  }
+
+  leftArrow.onclick = () => {
+    if (currentEmailIndex > 1) {
+      load_email(listOfAllEmails[currentEmailIndex - 2], listOfAllEmails);
+    }
+  }
+  rightArrow.onclick = () => {
+    if (currentEmailIndex < totalEmails) {
+      load_email(listOfAllEmails[currentEmailIndex], listOfAllEmails);
+    }
+  };
+
+
+
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
 
-  // Clear the email-view
-  document.querySelector('#email-view').innerHTML = '';
+
 
   // Get the email
   fetch(`/emails/${email_id}`)
@@ -546,8 +610,6 @@ function load_email(email_id) {
     });
   });
 }
-
-
 
 
 function resetSelectAll() {
