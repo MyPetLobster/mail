@@ -384,7 +384,22 @@ function load_email(email_id) {
 
     // Create a div for the email
     const email_div = document.createElement('div');
-    email_div.innerHTML = `<b>From:</b> ${email.sender}<br><b>To:</b> ${email.recipients}<br><b>Subject:</b> ${email.subject}<br><b>Timestamp:</b> ${email.timestamp}<br><br>${email.body}`;
+    email_div.innerHTML = `
+      <div class="email-content-div">
+        <div class="content-header">
+          <div class="profile-pic-container">
+            <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
+          </div>
+          <div class="content-subject">${email.subject}</div>
+        </div>
+        <div class="content-content">
+          <div class="content-sender">From: ${email.sender}</div>
+          <div class="content-recipients">To: ${email.recipients.join(', ')}</div>
+          <div class="content-timestamp">${email.timestamp}</div>
+          <div class="content-body">${email.body}</div>
+        </div>
+      </div>
+    `;
 
     // Append the email to the email-view
     document.querySelector('#email-view').appendChild(email_div);

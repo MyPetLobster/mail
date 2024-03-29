@@ -95,7 +95,7 @@
                     <div class="user-info">
                         <a class="profile-pic-container" href="{% url 'index' %}">
                             {% if request.user.profile_picture %}
-                                <img class="profile-picture" src="{{ request.user.profile_picture.url }}">
+                                <img class="profile-picture" src="{{ request.user.profile_picture }}">
                             {% else %}
                                 <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
                             {% endif %}
