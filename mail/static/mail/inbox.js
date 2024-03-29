@@ -409,7 +409,11 @@ function load_email(email_id) {
     // Create a button to reply
     const replyButton = document.createElement('button');
     replyButton.classList.add('email-reply-button');
-    replyButton.innerHTML = 'Reply';
+    replyButton.innerHTML = `
+        <svg id="reply-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 19">
+          <path id="reply-icon-path" fill="rgb(84,84,84)" data-name="reply-24px" d="M15,5H3.4L6.7,1.7A.967.967,0,0,0,6.7.3.967.967,0,0,0,5.3.3l-5,5a.967.967,0,0,0,0,1.4l5,5a.967.967,0,0,0,1.4,0,.967.967,0,0,0,0-1.4L3.4,7H15a6.957,6.957,0,0,1,7,7v4a1,1,0,0,0,2,0V14A8.963,8.963,0,0,0,15,5Z"/>
+        </svg>
+        Reply `;
     replyButton.addEventListener('click', () => {
       if (!listenersLoaded) {
         minimizeCompose();
@@ -432,7 +436,11 @@ function load_email(email_id) {
     // Create forward btn
     const forwardButton = document.createElement('button');
     forwardButton.classList.add('email-forward-button');
-    forwardButton.innerHTML = 'Forward';
+    forwardButton.innerHTML = `
+        <svg id="forward-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 19">
+          <path id="forward-icon-path" fill="rgb(84,84,84)" data-name="forward-24px" d="M23.7,5.3l-5-5a.967.967,0,0,0-1.4,0,.967.967,0,0,0,0,1.4L20.6,5H9a8.963,8.963,0,0,0-9,9v4a.945.945,0,0,0,1,1,.945.945,0,0,0,1-1V14A6.957,6.957,0,0,1,9,7H20.6l-3.3,3.3a.967.967,0,0,0,0,1.4.967.967,0,0,0,1.4,0l5-5A.967.967,0,0,0,23.7,5.3Z"/>
+        </svg>
+        Forward`;
     forwardButton.addEventListener('click', () => {
       if (!listenersLoaded) {
         minimizeCompose();
