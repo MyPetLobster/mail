@@ -89,13 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     setTimeout(() => {
-        if (localStorage.getItem('sent') === 'true') {
-            load_mailbox('sent');
-        } else if (localStorage.getItem('archive') === 'true') {
-            load_mailbox('archive');
-        } else {
-            load_mailbox('inbox');
-        }
+      load_mailbox('inbox');
     }, 100);
   };
 
