@@ -234,10 +234,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const selectCount = document.querySelectorAll('.email-checkbox:checked').length;
       if (selectAllCheckbox.checked) {
           allIconsDiv.classList.remove('hidden');
+          allIconsDiv.classList.remove('negative-zidx');
           selectAllText.classList.add('hidden');
           allCheckboxes.forEach(checkbox => checkbox.checked = true);
       } else {
           allIconsDiv.classList.add('hidden');
+          allIconsDiv.classList.add('negative-zidx');
           selectAllText.classList.remove('hidden');
           allCheckboxes.forEach(checkbox => checkbox.checked = false);
       }
@@ -391,7 +393,7 @@ function load_mailbox(mailbox) {
   });
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  document.querySelector('#emails-view').innerHTML = `<h4>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h4>`;
 
   // Calculate offset to fetch emails based on current page
   const offset = (currentPage - 1) * emailsPerPage;
@@ -726,6 +728,7 @@ function showHideIcons() {
   
   selectAllText.classList.add('hidden');
   allIconsDiv.classList.remove('hidden');
+  allIconsDiv.classList.remove('negative-zidx');
      
   const checkboxes = document.querySelectorAll('.email-checkbox');
   let checkedCount = 0;
@@ -739,6 +742,7 @@ function showHideIcons() {
       const allIconsDiv = document.querySelector('#all-icons-div');
       selectAllText.classList.remove('hidden');
       allIconsDiv.classList.add('hidden');
+      allIconsDiv.classList.add('negative-zidx');
       selectAllCheckbox.checked = false;
   } else if (checkedCount === checkboxes.length) {
       selectAllCheckbox.checked = true;

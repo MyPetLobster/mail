@@ -2,6 +2,9 @@ textarea {
     min-height: 400px;
 }
 
+.negative-zidx {
+    z-index: -1;
+}
 
 #faded-background {
     position: absolute;
