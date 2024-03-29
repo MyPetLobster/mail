@@ -270,8 +270,8 @@ body {
     font-size: 0.8em;
 }
 .profile-pic-container {
-    height: 40px;
-    width: 40px;
+    height: 46px;
+    width: 46px;
     border-radius: 50%;
     overflow: hidden;
     transition-duration: 250ms;
@@ -492,10 +492,12 @@ body {
 #left-arrow:hover {
     text-decoration: none;
     color: rgb(197,34,31);
+    font-weight: bold;
 }
 #right-arrow:hover {
     text-decoration: none;
     color: rgb(51,168,82);
+    font-weight: bold;
 }
 
 
