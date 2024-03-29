@@ -690,6 +690,7 @@ body {
 .email-reply-button,
 .email-forward-button,
 .email-archive-button {
+    font-size: 0.8em;
     max-height: 30px;
     color: rgb(69,72,71);
     display: flex;
