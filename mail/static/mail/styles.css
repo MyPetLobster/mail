@@ -699,3 +699,26 @@ body {
     width: 16px;
     margin-right: 8px;
 }
+
+.timestamp-icons-div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#reply-icon-small {
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+#archive-icon-small {
+    height: 17px;
+    width: 17px;
+    margin: 0 8px 0 12px;
+}
+#reply-icon-small:hover path {
+    fill: rgb(51,168,82);
+}
+#archive-icon-small:hover * {
+    stroke: rgb(250,188,5);
+}
