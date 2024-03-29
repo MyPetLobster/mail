@@ -7,6 +7,8 @@ let listenersLoaded = false;
 document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
+    localStorage.setItem('sent', 'false');
+    localStorage.setItem('archive', 'false');
     switchToMailboxArrows();
     resetSelectAll();
     showAllIcons();
@@ -110,7 +112,12 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         });
     });
-  
+    
+    document.querySelector('#select-all-checkbox').checked = false;
+    document.querySelector('#select-all-text').classList.remove('hidden');
+    document.querySelector('#all-icons-div').classList.add('hidden');
+
+
     setTimeout(() => {
         if (localStorage.getItem('sent') === 'true') {
             load_mailbox('sent');
@@ -135,7 +142,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         });
     });
-  
+    
+    document.querySelector('#select-all-checkbox').checked = false;
+    document.querySelector('#all-icons-div').classList.add('hidden');
+    document.querySelector('#select-all-text').classList.remove('hidden');
+
     setTimeout(() => {
         if (localStorage.getItem('sent') === 'true') {
             load_mailbox('sent');
@@ -152,14 +163,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedEmails = [];
     selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
     if (selectedEmails.length === 1) {
-      alert("Email moved to trash");
+      alert("Email moved to trash (metaphorically)");
     } else {
-      alert(`${selectedEmails.length} emails moved to trash`);
+      alert(`${selectedEmails.length} emails moved to trash (metaphorically)`);
     }
-    // selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
-    // selectedEmails.forEach(checkbox => {
-    // });
-  
+
+    document.querySelector('#select-all-checkbox').checked = false;
+    document.querySelector('#all-icons-div').classList.add('hidden');
+    document.querySelector('#select-all-text').classList.remove('hidden');
+
     setTimeout(() => {
         if (localStorage.getItem('sent') === 'true') {
             load_mailbox('sent');
@@ -254,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
       trashThree.classList.add('full-hidden');
       trashTwo.style.display = 'inherit';
   })
-  
+
 });
 
 function switchToMailboxArrows() {
