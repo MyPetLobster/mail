@@ -274,9 +274,12 @@ body {
     width: 100%;
     object-fit: cover;
 }
+.profile-picture-email {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.095) !important;
+}
 .profile-pic-container:hover {
     cursor: pointer;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.275) !important;
 }
 
 
@@ -583,4 +586,105 @@ body {
     height: 14px;
     width: 14px;
     margin-right: 8px;
+}
+
+
+
+/* Email View */
+
+#email-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 16px;
+    border-top-left-radius: 16px;
+}
+.content-header {
+    display: flex;
+    gap: 8px;
+}
+.content-subject {
+    font-size: 1.5em;
+}
+.content-sender {
+    font-size: 1.1em;
+    color: rgb(88, 83, 83);
+}
+.recipients-timestamp {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+.content-recipients {
+    font-size: 0.9em;
+    color: rgb(129, 117, 117);
+    }
+.content-timestamp {
+    font-size: 0.8em;
+    color: rgb(129, 117, 117);
+}
+.content-content { 
+    margin-left: 48px;
+}
+
+.button-box {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 64px 0  24px 24px;
+    
+    padding-right: 24px;
+}
+.reply-forward-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-bottom: 0;
+    gap: 8px;
+}
+.email-reply-button,
+.email-forward-button,
+.email-archive-button {
+    max-height: 30px;
+    color: rgb(69,72,71);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px 16px;
+    background-color: rgb(238,238,238);
+    border: none;
+    border-radius: 20px;
+    border: 1px solid rgb(69,72,71) !important;
+    outline: none;
+}
+
+.email-reply-button:hover,
+.email-archive-button:hover, 
+.email-forward-button:hover {
+    background-color: rgb(69,72,71);
+    color: white;
+}
+
+.email-reply-button:active,
+.email-reply-button:focus,
+.email-reply-button::after,
+.email-forward-button:active,
+.email-forward-button:focus,
+.email-forward-button::after,
+.email-archive-button:active,
+.email-archive-button:focus,
+.email-archive-button::after {
+    outline: none;
+    border: none;
+}
+
+.email-button-active {
+    outline: none !important;
+    border: none !important;
+    background-color: rgb(43, 44, 43) !important;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.402) !important;
 }

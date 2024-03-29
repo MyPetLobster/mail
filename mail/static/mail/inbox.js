@@ -383,32 +383,41 @@ function load_email(email_id) {
     console.log(email);
 
     // Create a div for the email
-    const email_div = document.createElement('div');
-    email_div.innerHTML = `
+    const emailDiv = document.createElement('div');
+    emailDiv.innerHTML = `
       <div class="email-content-div">
         <div class="content-header">
-          <div class="profile-pic-container">
+          <div class="profile-pic-container profile-picture-email">
             <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
           </div>
           <div class="content-subject">${email.subject}</div>
         </div>
         <div class="content-content">
           <div class="content-sender">From: ${email.sender}</div>
-          <div class="content-recipients">To: ${email.recipients.join(', ')}</div>
-          <div class="content-timestamp">${email.timestamp}</div>
+          <div class="recipients-timestamp">
+            <div class="content-recipients">To: ${email.recipients.join(', ')}</div>
+            <div class="content-timestamp">${email.timestamp}</div>
+          </div>
           <div class="content-body">${email.body}</div>
         </div>
       </div>
     `;
 
     // Append the email to the email-view
-    document.querySelector('#email-view').appendChild(email_div);
+    document.querySelector('#email-view').appendChild(emailDiv);
 
     // Create a button to reply
-    const reply_button = document.createElement('button');
-    reply_button.innerHTML = 'Reply';
-    reply_button.addEventListener('click', () => {
-      compose_email();
+    const replyButton = document.createElement('button');
+    replyButton.classList.add('email-reply-button');
+    replyButton.innerHTML = 'Reply';
+    replyButton.addEventListener('click', () => {
+      if (!listenersLoaded) {
+        minimizeCompose();
+        expandCompose();
+        closeCompose();
+      }
+      listenersLoaded = true;
+        compose_email();
 
       // If the email is a reply, keep the subject the same
       if (email.subject.slice(0, 3) === 'Re:') {
@@ -420,11 +429,26 @@ function load_email(email_id) {
       document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
     });
 
-    // Append the button to the email-view
-    document.querySelector('#email-view').appendChild(reply_button);
+    // Create forward btn
+    const forwardButton = document.createElement('button');
+    forwardButton.classList.add('email-forward-button');
+    forwardButton.innerHTML = 'Forward';
+    forwardButton.addEventListener('click', () => {
+      if (!listenersLoaded) {
+        minimizeCompose();
+        expandCompose();
+        closeCompose();
+      }
+      listenersLoaded = true;
+      compose_email();
+      document.querySelector('#compose-subject').value = `Fwd: ${email.subject}`;
+      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+    });
+
 
     // Create a button to archive
     const archive_button = document.createElement('button');
+    archive_button.classList.add('email-archive-button'); 
     if (email.archived) {
       archive_button.innerHTML = 'Unarchive';
     } else { 
@@ -444,9 +468,28 @@ function load_email(email_id) {
       setTimeout(() => load_mailbox('inbox'), 100);
     });
 
-    // Append the button to the email-view
-    document.querySelector('#email-view').appendChild(archive_button);
+    const replyForwardBox = document.createElement('div');
+    replyForwardBox.classList.add('reply-forward-box');
+    replyForwardBox.classList.add('button-box');
+    replyForwardBox.appendChild(replyButton);
+    replyForwardBox.appendChild(forwardButton);
 
+    const buttonBox = document.createElement('div');
+    buttonBox.classList.add('button-box');
+    buttonBox.appendChild(replyForwardBox);
+    buttonBox.appendChild(archive_button);
+    document.querySelector('#email-view').appendChild(buttonBox);
+
+    const buttonList = [replyButton, forwardButton, archive_button];
+    buttonList.forEach(button => {
+      button.addEventListener('mousedown', () => {
+        button.classList.toggle('email-button-active')
+      })
+      button.addEventListener('mouseup', () => {
+        button.classList.toggle('email-button-active')
+      })
+    });
+    
     // Mark the email as read
     fetch(`/emails/${email_id}`, {
       method: 'PUT',
