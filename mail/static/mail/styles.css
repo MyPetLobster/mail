@@ -15,7 +15,7 @@ textarea {
 }
 
 .display-none {
-    display: none;
+    display: none !important;
 }
 
 .full-hidden {

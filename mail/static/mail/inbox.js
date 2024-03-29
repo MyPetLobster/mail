@@ -261,6 +261,30 @@ function load_mailbox(mailbox) {
   document.querySelector('#email-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
 
+  document.querySelector('#all-icons-div').classList.remove('display-none');
+  document.querySelector('#select-all-checkbox').classList.remove('display-none');
+  document.querySelector('#select-all-text').classList.remove('display-none');
+  document.querySelector('#solo-trash-div').classList.add('display-none');
+
+  document.querySelector('#solo-trash-div').addEventListener('mouseover', () => {
+    document.querySelector('#trash-solo-icon-01').classList.add('full-hidden');
+    document.querySelector('#trash-solo-icon-02').classList.remove('full-hidden');
+  });
+  document.querySelector('#solo-trash-div').addEventListener('mouseout', () => {
+    document.querySelector('#trash-solo-icon-01').classList.remove('full-hidden');
+    document.querySelector('#trash-solo-icon-02').classList.add('full-hidden');
+  });
+  document.querySelector('#solo-trash-div').addEventListener('mousedown', () => {
+    document.querySelector('#trash-solo-icon-02').classList.add('display-none');
+    document.querySelector('#trash-solo-icon-03').classList.remove('full-hidden');
+  });
+  document.querySelector('#solo-trash-div').addEventListener('mouseup', (event) => {
+    document.querySelector('#trash-solo-icon-02').classList.remove('display-none');
+    document.querySelector('#trash-solo-icon-03').classList.add('full-hidden');
+    alert('Email moved to trash');
+    event.stopPropagation();
+  });
+
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
@@ -395,6 +419,11 @@ function load_email(email_id, listOfAllEmails) {
   // Remove listeners for mailbox arrow functions
   document.querySelector('#right-arrow').removeAttribute('onclick');
   document.querySelector('#left-arrow').removeAttribute('onclick');
+  
+  document.querySelector('#all-icons-div').classList.add('display-none');
+  document.querySelector('#select-all-checkbox').classList.add('display-none');
+  document.querySelector('#select-all-text').classList.add('display-none');
+  document.querySelector('#solo-trash-div').classList.remove('display-none');
 
   // Clear the email-view
   document.querySelector('#email-view').innerHTML = '';
@@ -462,16 +491,6 @@ function load_email(email_id, listOfAllEmails) {
             <div class="content-recipients">To: ${email.recipients.join(', ')}</div>
             <div class="timestamp-icons-div">
               <div class="content-timestamp">${email.timestamp}</div>
-                <svg id="archive-icon-small" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                    <rect width="256" height="256" fill="none"/>
-                    <rect class="rect-lines" x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                    <line x1="128" y1="72" x2="128" y2="152" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                    <path d="M40,160H76.69a8,8,0,0,1,5.65,2.34l19.32,19.32a8,8,0,0,0,5.65,2.34h41.38a8,8,0,0,0,5.65-2.34l19.32-19.32a8,8,0,0,1,5.65-2.34H216" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                    <polyline points="96 120 128 152 160 120" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                </svg>
-              <svg id="reply-icon-small" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 19">
-                <path fill="rgb(150,150,150)" data-name="reply-24px" d="M15,5H3.4L6.7,1.7A.967.967,0,0,0,6.7.3.967.967,0,0,0,5.3.3l-5,5a.967.967,0,0,0,0,1.4l5,5a.967.967,0,0,0,1.4,0,.967.967,0,0,0,0-1.4L3.4,7H15a6.957,6.957,0,0,1,7,7v4a1,1,0,0,0,2,0V14A8.963,8.963,0,0,0,15,5Z"/>
-              </svg>
             </div>
           </div>
           <div class="content-body">${email.body}</div>
@@ -505,20 +524,6 @@ function load_email(email_id, listOfAllEmails) {
       } else {
         document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
       }
-      document.querySelector('#compose-recipients').value = email.sender;
-      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
-    });
-
-    const smallReplyIcon = document.querySelector('#reply-icon-small');
-    smallReplyIcon.addEventListener('click', () => {
-      if (!listenersLoaded) {
-        minimizeCompose();
-        expandCompose();
-        closeCompose();
-      }
-      listenersLoaded = true;
-      compose_email();
-      document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
       document.querySelector('#compose-recipients').value = email.sender;
       document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
     });
@@ -566,18 +571,6 @@ function load_email(email_id, listOfAllEmails) {
       setTimeout(() => load_mailbox('inbox'), 100);
     });
 
-    const smallArchiveIcon = document.querySelector('#archive-icon-small');
-    smallArchiveIcon.addEventListener('click', () => {
-      archived = !email.archived;
-      fetch(`/emails/${email_id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          archived: archived
-        })
-      });
-      // wait until db is updated then refresh inbox
-      setTimeout(() => load_mailbox('inbox'), 100);
-    });
 
     const replyForwardBox = document.createElement('div');
     replyForwardBox.classList.add('reply-forward-box');
