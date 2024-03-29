@@ -595,10 +595,9 @@ body {
 #email-view {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
     width: 100%;
     padding: 16px;
-    border-top-left-radius: 16px;
 }
 .content-header {
     display: flex;

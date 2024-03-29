@@ -400,13 +400,13 @@ function load_email(email_id) {
               <div class="content-timestamp">${email.timestamp}</div>
                 <svg id="archive-icon-small" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                     <rect width="256" height="256" fill="none"/>
-                    <rect class="rect-lines" x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="rgb(188,185,185)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                    <line x1="128" y1="72" x2="128" y2="152" fill="none" stroke="rgb(188,185,185)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                    <path d="M40,160H76.69a8,8,0,0,1,5.65,2.34l19.32,19.32a8,8,0,0,0,5.65,2.34h41.38a8,8,0,0,0,5.65-2.34l19.32-19.32a8,8,0,0,1,5.65-2.34H216" fill="none" stroke="rgb(188,185,185)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                    <polyline points="96 120 128 152 160 120" fill="none" stroke="rgb(188,185,185)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                    <rect class="rect-lines" x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                    <line x1="128" y1="72" x2="128" y2="152" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                    <path d="M40,160H76.69a8,8,0,0,1,5.65,2.34l19.32,19.32a8,8,0,0,0,5.65,2.34h41.38a8,8,0,0,0,5.65-2.34l19.32-19.32a8,8,0,0,1,5.65-2.34H216" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                    <polyline points="96 120 128 152 160 120" fill="none" stroke="rgb(150,150,150)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
                 </svg>
               <svg id="reply-icon-small" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 19">
-                <path fill="rgb(188,185,185)" data-name="reply-24px" d="M15,5H3.4L6.7,1.7A.967.967,0,0,0,6.7.3.967.967,0,0,0,5.3.3l-5,5a.967.967,0,0,0,0,1.4l5,5a.967.967,0,0,0,1.4,0,.967.967,0,0,0,0-1.4L3.4,7H15a6.957,6.957,0,0,1,7,7v4a1,1,0,0,0,2,0V14A8.963,8.963,0,0,0,15,5Z"/>
+                <path fill="rgb(150,150,150)" data-name="reply-24px" d="M15,5H3.4L6.7,1.7A.967.967,0,0,0,6.7.3.967.967,0,0,0,5.3.3l-5,5a.967.967,0,0,0,0,1.4l5,5a.967.967,0,0,0,1.4,0,.967.967,0,0,0,0-1.4L3.4,7H15a6.957,6.957,0,0,1,7,7v4a1,1,0,0,0,2,0V14A8.963,8.963,0,0,0,15,5Z"/>
               </svg>
             </div>
           </div>
