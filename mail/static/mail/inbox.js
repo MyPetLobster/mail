@@ -512,6 +512,9 @@ function minimizeCompose() {
     } else {
       composeForm.style.display = 'none';
     }
+
+    document.querySelector('#faded-background').classList.add('display-none');
+
     
   });
 }
@@ -524,6 +527,9 @@ function closeCompose() {
       composeFloatingDiv.classList.remove('floating-div-fullscreen');
     }
     composeFloatingDiv.style.display = 'none';
+
+    document.querySelector('#faded-background').classList.add('display-none');
+    
   });
 }
 
@@ -537,6 +543,13 @@ function expandCompose() {
       composeFloatingDiv.classList.remove('floating-div-fullscreen');
     } else {
       composeFloatingDiv.classList.add('floating-div-fullscreen');
+    }
+
+    const fadedBackground = document.querySelector('#faded-background');
+    if (fadedBackground.classList.contains('display-none')) {
+      fadedBackground.classList.remove('display-none');
+    } else {
+      fadedBackground.classList.add('display-none');
     }
   });
 }
