@@ -15,8 +15,14 @@
         
         <div class="page-content">
             <div id="base-nav-div" class="navbar navbar-expand-lg navbar-light">
-                <div class="top-navbar">
-                    <svg id="hamburger" focusable="false" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                <div class="top-navbar"> 
+                    <svg id="hamburger" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                        <rect width="256" height="256" fill="none"/>
+                        <path d="M48.07,96a8,8,0,0,1-7.89-9.72C46.68,55.55,83.52,32,128,32s81.32,23.55,87.82,54.28A8,8,0,0,1,207.93,96Z" fill="none" stroke="rgb(84,84,84)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                        <polyline points="24 176 68 160 108 176 148 160 188 176 232 160" fill="none" stroke="rgb(84,84,84)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                        <line x1="24" y1="128" x2="232" y2="128" fill="none" stroke="rgb(84,84,84)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                        <path class="bottom-bun" d="M208,168.73V184a32,32,0,0,1-32,32H80a32,32,0,0,1-32-32V167.27" fill="none" stroke="rgb(84,84,84)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                    </svg>     
                     <a class="navbar-brand" href="{% url 'index' %}">
                         <img id="gmail-logo" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r5.png">
                     </a>
@@ -81,7 +87,7 @@
                 <div class="top-container">
                     <div class="search-bar">
                         <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                            <path id="search-glass-icon" fill="rgb(84,84,84)" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                         </svg>
                         <input id="search" placeholder="Search">
                     </div>

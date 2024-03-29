@@ -64,9 +64,35 @@ textarea {
     width: 80px !important;
 }
 
+.search-bar:hover svg path,
+.search-bar:focus svg path {
+    fill: rgb(66,132,243);
+    transition-duration: 250ms;
+}
+.search-bar:hover input::placeholder {
+    color: rgb(51,168,82);
+}
+.search-bar:hover,
+.search-bar:active {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.145);
+}
 
 
-
+#hamburger {
+    cursor: pointer;
+}
+#hamburger:hover path {
+    stroke: rgb(250,188,5) !important;
+}
+#hamburger:hover .bottom-bun {
+    stroke: rgb(66,132,243) !important;
+}
+#hamburger:hover line {
+    stroke: rgb(51,168,82) !important;
+}
+#hamburger:hover polyline {
+    stroke: rgb(197,34,31) !important;
+}
 
 .select-all-div {
     display: flex;
@@ -296,7 +322,7 @@ body {
 }
 
 .email:first-of-type {
-    border-top: 1px solid #3c3b3b;
+    border-top: 1px solid rgb(170,170,170);
 }
 .email {
     display: flex;
@@ -304,7 +330,7 @@ body {
     align-items: center;
     cursor: pointer;
     padding: 4px 16px;
-    border: 1px solid #3c3b3b;
+    border: 1px solid rgb(170,170,170);
     border-top: none;
     font-size: 0.7em;
 }
