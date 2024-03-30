@@ -382,9 +382,10 @@ function load_mailbox(mailbox) {
     document.querySelector('#trash-solo-icon-01').classList.add('full-hidden');
     document.querySelector('#trash-solo-icon-02').classList.remove('full-hidden');
   });
-  document.querySelector('#solo-trash-div').addEventListener('mouseout', () => {
+  document.querySelector('#solo-trash-div').addEventListener('mouseout', (event) => {
     document.querySelector('#trash-solo-icon-01').classList.remove('full-hidden');
     document.querySelector('#trash-solo-icon-02').classList.add('full-hidden');
+    event.stopPropagation();
   });
   document.querySelector('#solo-trash-div').addEventListener('mousedown', () => {
     document.querySelector('#trash-solo-icon-02').classList.add('display-none');
