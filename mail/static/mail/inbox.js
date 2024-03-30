@@ -3,6 +3,7 @@ let currentPage = 1;
 let emailsPerPage = 25;
 let totalEmails = 0;
 let listenersLoaded = false;
+let soloTrashListener = false;
 
 document.addEventListener('DOMContentLoaded', function() {
   // Use navbar or sidebar links to load mailboxes
@@ -378,25 +379,27 @@ function load_mailbox(mailbox) {
   document.querySelector('#select-all-text').classList.remove('display-none');
   document.querySelector('#solo-trash-div').classList.add('display-none');
 
-  document.querySelector('#solo-trash-div').addEventListener('mouseover', () => {
-    document.querySelector('#trash-solo-icon-01').classList.add('full-hidden');
-    document.querySelector('#trash-solo-icon-02').classList.remove('full-hidden');
-  });
-  document.querySelector('#solo-trash-div').addEventListener('mouseout', (event) => {
-    document.querySelector('#trash-solo-icon-01').classList.remove('full-hidden');
-    document.querySelector('#trash-solo-icon-02').classList.add('full-hidden');
-    event.stopPropagation();
-  });
-  document.querySelector('#solo-trash-div').addEventListener('mousedown', () => {
-    document.querySelector('#trash-solo-icon-02').classList.add('display-none');
-    document.querySelector('#trash-solo-icon-03').classList.remove('full-hidden');
-  });
-  document.querySelector('#solo-trash-div').addEventListener('mouseup', (event) => {
-    document.querySelector('#trash-solo-icon-02').classList.remove('display-none');
-    document.querySelector('#trash-solo-icon-03').classList.add('full-hidden');
-    alert('Email moved to trash');
-    event.stopPropagation();
-  });
+  if (soloTrashListener === false) {
+    document.querySelector('#solo-trash-div').addEventListener('mouseover', () => {
+      document.querySelector('#trash-solo-icon-01').classList.add('full-hidden');
+      document.querySelector('#trash-solo-icon-02').classList.remove('full-hidden');
+    });
+    document.querySelector('#solo-trash-div').addEventListener('mouseout', () => {
+      document.querySelector('#trash-solo-icon-01').classList.remove('full-hidden');
+      document.querySelector('#trash-solo-icon-02').classList.add('full-hidden');
+    });
+    document.querySelector('#solo-trash-div').addEventListener('mousedown', () => {
+      document.querySelector('#trash-solo-icon-02').classList.add('display-none');
+      document.querySelector('#trash-solo-icon-03').classList.remove('full-hidden');
+    });
+    document.querySelector('#solo-trash-div').addEventListener('mouseup', () => {
+      alert('Email moved to trash (metaphorically)');
+      document.querySelector('#trash-solo-icon-02').classList.remove('display-none');
+      document.querySelector('#trash-solo-icon-03').classList.add('full-hidden');
+    });
+    soloTrashListener = true;
+  } 
+
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h4>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h4>`;
