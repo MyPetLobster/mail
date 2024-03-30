@@ -911,3 +911,11 @@ body {
     text-decoration: none;
     color: rgb(29, 82, 175)
 }
+
+.auth-input {
+    width: 250px;
+    font-size: 0.8em !important;
+}
+.auth-button {
+    padding: 4px 20px;
+}
