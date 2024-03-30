@@ -439,8 +439,9 @@ function load_mailbox(mailbox) {
       const sender = email.sender;
       const sender_concat = sender.length > 25 ? sender.substring(0, 25) + '...' : sender;
       const subject = `${email.subject ? email.subject : '(no subject)'} -&nbsp;`;
-      const concat_body = email.body.length > 52 ? email.body.substring(0, 52) + '...' : email.body;
-
+      const bodyText = email.body;
+      const cleanBody = bodyText.replace(/<[^>]*>?/gm, ' ');
+      const concat_body = cleanBody.length > 52 ? cleanBody.substring(0, 52) + '...' : cleanBody;
       const email_div = document.createElement('div');
       const senderRecipientDiv = document.createElement('div');
       const subjectDiv = document.createElement('div');
@@ -585,6 +586,7 @@ function load_email(email_id, listOfAllEmails) {
   .then(response => response.json())
   .then(email => {
 
+    const body = makeEmailBodyLinksClickable(email.body);
     // Create a div for the email
     const emailDiv = document.createElement('div');
     emailDiv.innerHTML = `
@@ -603,7 +605,7 @@ function load_email(email_id, listOfAllEmails) {
               <div class="content-timestamp">${email.timestamp}</div>
             </div>
           </div>
-          <div class="content-body">${email.body}</div>
+          <div class="content-body">${body}</div>
         </div>
       </div>
     `;
@@ -715,6 +717,17 @@ function load_email(email_id, listOfAllEmails) {
   });
 }
 
+function makeEmailBodyLinksClickable (emailBody) {
+  const emailBodyArray = emailBody.split(' ');
+  const emailBodyArrayWithLinks = emailBodyArray.map(word => {
+    if (word.includes('http')) {
+      return `<a href="${word}">${word}</a>`;
+    } else {
+      return word;
+    }
+  });
+  return emailBodyArrayWithLinks.join(' ');
+}
 
 function resetSelectAll() {
   const selectAllCheckbox = document.querySelector('#select-all-checkbox');
