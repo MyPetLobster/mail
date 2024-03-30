@@ -1,24 +1,27 @@
 {% extends "mail/layout.html" %}
 
 {% block body %}
+    <div class="login-page-div">
+        <div class="login-header">One account. To rule them all.</div>
+        <div class="login-subheader">Sign in with your Google Account</div>
 
-    <h2>Login</h2>
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
 
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+        <div class="google-login-div">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <input class="btn btn-primary" type="submit" value="Login">
+            </form>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Login">
-    </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+        <span class="login-register-span"><a class="login-register-text" href="{% url 'register' %}">Create an account</a></span>
+    </div>
 {% endblock %}
