@@ -263,6 +263,17 @@ document.addEventListener('DOMContentLoaded', function() {
       trashTwo.style.display = 'inherit';
   })
 
+  const navProfilePic = document.querySelector('#nav-profile-pic');
+  const dropDownMenu = document.querySelector('#dropdown-menu');
+
+  navProfilePic.addEventListener('click', () => {
+    dropDownMenu.classList.toggle('display-none');
+  });
+  
+  document.querySelector('.dropdown-x').addEventListener('click', () => {
+    dropDownMenu.classList.add('display-none');
+  });
+
 });
 
 function switchToMailboxArrows() {

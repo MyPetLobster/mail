@@ -93,7 +93,7 @@
                     </div>
                     
                     <div class="user-info">
-                        <a class="profile-pic-container" href="{% url 'index' %}">
+                        <a id="nav-profile-pic" class="profile-pic-container">
                             {% if request.user.profile_picture %}
                                 <img class="profile-picture" src="{{ request.user.profile_picture }}">
                             {% else %}
@@ -103,6 +103,27 @@
                     </div>
                 </div>
                 <div class="bottom-container">
+                    <div id="dropdown-menu" class="display-none">
+                        <div class="dropdown-x-div">
+                            <div id="dropdown-x" class="dropdown-x">&times;</div>
+                        </div>
+                        <div id="dropdown-menu-content">
+                            <h6 class="dropdown-greeting">Hi, {{ request.user.username }}!</h6>
+                            <div class="dropdown-picture-div">
+                                {% if request.user.profile_picture %}
+                                    <img class="dropdown-picture" src="{{ request.user.profile_picture }}">
+                                {% else %}
+                                    <div class="dropdown-picture-div">
+                                        <img class="dropdown-picture" src="https://i.imgur.com/HQk6Yso.jpg">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="dropdown-links-div">
+                                <a class="dropdown-link" href="{% url 'index' %}">Home</a>
+                                <a class="dropdown-link" href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </div>
+                    </div>
                     {% block body %}
                     {% endblock %}
                 </div>
