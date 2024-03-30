@@ -439,7 +439,7 @@ function load_mailbox(mailbox) {
       const sender = email.sender;
       const sender_concat = sender.length > 25 ? sender.substring(0, 25) + '...' : sender;
       const subject = `${email.subject ? email.subject : '(no subject)'} -&nbsp;`;
-      const concat_body = email.body.length > 40 ? email.body.substring(0, 40) + '...' : email.body;
+      const concat_body = email.body.length > 52 ? email.body.substring(0, 52) + '...' : email.body;
 
       const email_div = document.createElement('div');
       const senderRecipientDiv = document.createElement('div');
