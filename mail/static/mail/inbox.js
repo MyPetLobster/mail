@@ -18,7 +18,9 @@ const usersWithPics = [
   "AuntSpiker",
   "AuntSponge01",
   "TheTigerKing",
-  "JJProperties"
+  "JJProperties",
+  "DWyle445",
+  "BenThePerson"
 ]
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -51,6 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('archive', 'true');
   });
 
+  document.querySelectorAll('.logout-link').forEach(link => {
+    link.addEventListener('click', () => {
+      localStorage.setItem('sent', 'false'),
+      localStorage.setItem('archive', 'false')
+    });
+  });
+  
   // Display compose new message form when compose button is clicked
   document.querySelector('#compose-button').addEventListener('mouseup', () => {
     if (!listenersLoaded) {
@@ -752,7 +761,8 @@ function handleRightArrowMailbox() {
 }
 
 function makeEmailBodyLinksClickable (emailBody) {
-  const emailBodyArray = emailBody.split(' ');
+  const emailBodyArray = emailBody.split(/ |&nbsp;/);
+
   const emailBodyArrayWithLinks = emailBodyArray.map(word => {
     if (word.includes('http')) {
       return `<a href="${word}">${word}</a>`;

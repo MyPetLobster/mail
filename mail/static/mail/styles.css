@@ -723,6 +723,7 @@ textarea {
     color: var(--primary-grey);
     }
 .content-timestamp {
+    min-width: 200px;
     font-size: 0.8em;
     color: var(--primary-grey);
 }

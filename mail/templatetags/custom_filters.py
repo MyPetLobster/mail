@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.filter
 def check_for_profile_picture(value):
-    ids_with_pics = [3, 4, 5, 6, 8, 9, 11, 12, 15, 16, 17, 18, 19, 20, 21]
+    ids_with_pics = [3, 4, 5, 6, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 20, 21]
     return value in ids_with_pics
 
 
