@@ -1,6 +1,6 @@
 {% extends "mail/layout.html" %}
 {% load static %}
-
+{% block title %}{{ request.user.email }}{% endblock %}
 {% block body %}
 
     <div class="email-div-header">

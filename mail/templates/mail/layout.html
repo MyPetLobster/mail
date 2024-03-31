@@ -1,13 +1,16 @@
 {% load static %}
 
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Mail{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
+        <link rel="icon" type="image/png" href="../../static/mail/images/gmail.ico">
         {% block script %}
         {% endblock %}
     </head>
@@ -94,8 +97,8 @@
                     
                     <div class="user-info">
                         <a id="nav-profile-pic" class="profile-pic-container">
-                            {% if request.user.email == 'CoryJSuzuki@gmail.com' %}
-                                <img class="profile-picture" src="https://i.imgur.com/HQk6Yso.jpg">
+                            {% if request.user.id|check_for_profile_picture %}
+                                <img class="profile-picture" src="../../static/mail/images/{{ request.user.email|parse_username_from_email }}.jpg">
                             {% else %}
                                 <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
                             {% endif %}
@@ -110,12 +113,10 @@
                         <div id="dropdown-menu-content">
                             <h6 class="dropdown-greeting">Hi, {{ request.user.username }}!</h6>
                             <div class="dropdown-picture-div">
-                                {% if request.user.email == 'CoryJSuzuki@gmail.com' %}
-                                    <img class="dropdown-picture" src="https://i.imgur.com/HQk6Yso.jpg">
+                                {% if request.user.id|check_for_profile_picture %}
+                                    <img class="dropdown-picture" src="../../static/mail/images/{{ request.user.email|parse_username_from_email }}.jpg">
                                 {% else %}
-                                    <div class="dropdown-picture-div">
-                                        <img class="dropdown-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
-                                    </div>
+                                    <img class="dropdown-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
                                 {% endif %}
                             </div>
                             <div class="dropdown-links-div">

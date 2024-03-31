@@ -6,6 +6,9 @@ let listenersLoaded = false;
 let soloTrashListener = false;
 
 document.addEventListener('DOMContentLoaded', function() {
+  
+  switchToMailboxArrows();
+
   // Use navbar or sidebar links to load mailboxes
   document.querySelector('#inbox-link').addEventListener('click', () => {
     localStorage.setItem('sent', 'false');
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setTimeout(() => {
       load_mailbox('inbox');
-    }, 100);
+    }, 250);
   };
 
   closedEnvelopeIcon.onclick = () => {
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             load_mailbox('inbox');
         }
-    }, 100);
+    }, 250);
   };
 
   openEnvelopeIcon.onclick = () => {
@@ -150,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             load_mailbox('inbox');
         }
-    }, 100);
+    }, 250);
   }
 
   trashIcon.addEventListener('mouseup', () => {
@@ -175,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             load_mailbox('inbox');
         }
-    }, 100);
+    }, 250);
   });
 
   // if user clicks on search bar, make the entire div a few pixels larger and make the background of the search bar and div white (.search-bar and #search)
@@ -438,6 +441,9 @@ function load_mailbox(mailbox) {
     // Loop through the emails
     emailsToDisplay.forEach(email => {
       // Create a div for the email
+      const subjectLength = email.subject ? email.subject.length : 0;
+      const charactersToDisplay = 86 - subjectLength;
+
       const recipients = email.recipients.join(', ')
       const recipients_concat = recipients.length > 25 ? recipients.substring(0, 25) + '...' : recipients;
       const sender = email.sender;
@@ -445,7 +451,7 @@ function load_mailbox(mailbox) {
       const subject = `${email.subject ? email.subject : '(no subject)'} -&nbsp;`;
       const bodyText = email.body;
       const cleanBody = bodyText.replace(/<[^>]*>?/gm, ' ');
-      const concat_body = cleanBody.length > 52 ? cleanBody.substring(0, 52) + '...' : cleanBody;
+      const concat_body = cleanBody.length > charactersToDisplay ? cleanBody.substring(0, charactersToDisplay) + '...' : cleanBody;
       const email_div = document.createElement('div');
       const senderRecipientDiv = document.createElement('div');
       const subjectDiv = document.createElement('div');
@@ -593,11 +599,35 @@ function load_email(email_id, listOfAllEmails) {
     const body = makeEmailBodyLinksClickable(email.body);
     // Create a div for the email
     const emailDiv = document.createElement('div');
+    const usersWithPics = [
+      "CoryJSuzuki", 
+      "Nick", 
+      "BlockbusterVideo", 
+      "yardsaleco", 
+      "tom_riddle26",
+      "BonsaiWorld",
+      "AuntLindaKnits",
+      "Big_D_Vader",
+      "norman_bates",
+      "A_Chigurh",
+      "AuntSpiker",
+      "AuntSponge01",
+      "TheTigerKing",
+      "JJProperties"
+    ]
+    
+    senderUsername = email.sender.split('@')[0];
+    if (usersWithPics.includes(senderUsername)) {
+      senderUsername = senderUsername.toLowerCase();
+    } else {
+      senderUsername = 'default';
+    }
+  
     emailDiv.innerHTML = `
       <div class="email-content-div">
         <div class="content-header">
           <div id="profile-picture-email" class="profile-pic-container">
-            <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
+            <img class="profile-picture" src="../../static/mail/images/${senderUsername}.jpg">
           </div>
           <div class="content-subject">${email.subject}</div>
         </div>
@@ -632,7 +662,7 @@ function load_email(email_id, listOfAllEmails) {
         closeCompose();
       }
       listenersLoaded = true;
-        compose_email();
+      compose_email();
 
       // If the email is a reply, keep the subject the same
       if (email.subject.slice(0, 3) === 'Re:') {
@@ -685,7 +715,7 @@ function load_email(email_id, listOfAllEmails) {
         })
       });
       // wait until db is updated then refresh inbox
-      setTimeout(() => load_mailbox('inbox'), 100);
+      setTimeout(() => load_mailbox('inbox'), 250);
     });
 
 
