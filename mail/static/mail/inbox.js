@@ -1,12 +1,29 @@
-// Set the current page and emails per page
+// Set global variable values for email pagination and icon listeners
 let currentPage = 1;
 let emailsPerPage = 25;
 let totalEmails = 0;
 let listenersLoaded = false;
 let soloTrashListener = false;
+const usersWithPics = [
+  "CoryJSuzuki", 
+  "Nick", 
+  "BlockbusterVideo", 
+  "yardsaleco", 
+  "tom_riddle26",
+  "BonsaiWorld",
+  "AuntLindaKnits",
+  "Big_D_Vader",
+  "norman_bates",
+  "A_Chigurh",
+  "AuntSpiker",
+  "AuntSponge01",
+  "TheTigerKing",
+  "JJProperties"
+]
 
 document.addEventListener('DOMContentLoaded', function() {
   
+  // Switch to mailbox arrow event listeners
   switchToMailboxArrows();
 
   // Use navbar or sidebar links to load mailboxes
@@ -18,12 +35,14 @@ document.addEventListener('DOMContentLoaded', function() {
     showAllIcons();
     load_mailbox('inbox');
   });
+
   document.querySelector('#sent-link').addEventListener('click', () => {
     switchToMailboxArrows();
     resetSelectAll();
     showTrashOnly();
     load_mailbox('sent');
   });
+
   document.querySelector('#archive-link').addEventListener('click', () => {
     switchToMailboxArrows();
     resetSelectAll();
@@ -32,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('archive', 'true');
   });
 
+  // Display compose new message form when compose button is clicked
   document.querySelector('#compose-button').addEventListener('mouseup', () => {
     if (!listenersLoaded) {
       minimizeCompose();
@@ -41,13 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
     listenersLoaded = true;
     compose_email();
   });
+
   // Compose form submit event
   document.querySelector('#compose-form').addEventListener('submit', () => {
     send_mail();
     localStorage.setItem('sent', 'true')
   });
 
-  // By default, load the inbox
+  // Load or refresh selected mailbox. Default to inbox
   if (localStorage.getItem('sent') === 'true') {
     load_mailbox('sent');
     localStorage.setItem('sent', 'false');
@@ -58,15 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
     load_mailbox('inbox');
   }
 
-  document.querySelector('#search').addEventListener('keyup', (key) => {
-    if (key.keyCode === 13) {
-      alert('Search not yet implemented');
-      document.querySelector('#search').value = '';
-    }
-  });
-
-
   // Select All, checkboxes, and batch processing
+  // Icon event listeners
   const archiveIcon = document.querySelector('#archive-icon');
   const closedEnvelopeIcon = document.querySelector('#closed-envelope-icon');
   const openEnvelopeIcon = document.querySelector('#open-envelope-icon');
@@ -181,8 +195,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 250);
   });
 
-  // if user clicks on search bar, make the entire div a few pixels larger and make the background of the search bar and div white (.search-bar and #search)
 
+  // Search bar style event listeners
   const search = document.querySelector('#search');
   const searchBar = document.querySelector('.search-bar');
 
@@ -190,17 +204,28 @@ document.addEventListener('DOMContentLoaded', function() {
       searchBar.style.backgroundColor = 'white';
       search.style.backgroundColor = 'white';
   });
-  // if user clicks anywhere else on page set background color of search bar and div back to original color #d5d5d5
+
+  // Reset style if user clicks elsewhere on the page
   document.addEventListener('click', (e) => {
       if (e.target !== search) {
           searchBar.style.backgroundColor = '#d5d5d5';
           search.style.backgroundColor = '#d5d5d5';
       }
   });
+
+  // Search bar "enter" key event listener
+  document.querySelector('#search').addEventListener('keyup', (key) => {
+    if (key.keyCode === 13) {
+      alert('Search not yet implemented');
+      document.querySelector('#search').value = '';
+    }
+  });
   
+  // Hamburger menu event listener
   const hamburger = document.querySelector('#hamburger');
   const navTextSpans = document.querySelectorAll('.nav-text');
 
+  // Collapse all nav text, only display icons. Main container expands left, 48px margin removed
   hamburger.addEventListener('click', () => {
       navTextSpans.forEach(span => {
           span.classList.toggle('display-none');
@@ -221,15 +246,13 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('.main-container').classList.toggle('margin-left-48');
   });
 
-
-
+  // Select all checkbox event listener
   const selectAllCheckbox = document.querySelector('#select-all-checkbox');
   const allIconsDiv = document.querySelector('#all-icons-div');
   const selectAllText = document.querySelector('#select-all-text');
 
   selectAllCheckbox.onclick = () => {
       const allCheckboxes = document.querySelectorAll('.email-checkbox');
-      const selectCount = document.querySelectorAll('.email-checkbox:checked').length;
       if (selectAllCheckbox.checked) {
           allIconsDiv.classList.remove('hidden');
           allIconsDiv.classList.remove('negative-zidx');
@@ -241,9 +264,9 @@ document.addEventListener('DOMContentLoaded', function() {
           selectAllText.classList.remove('hidden');
           allCheckboxes.forEach(checkbox => checkbox.checked = false);
       }
-      
   };
 
+  // Trash icon event listeners, animate Oscar the Grouch
   const trashDiv = document.querySelector('.trash-icons');
   const trashOne = document.querySelector('#trash-icon-01');
   const trashTwo = document.querySelector('#trash-icon-02');
@@ -257,7 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
       trashTwo.classList.add('full-hidden');
       trashOne.classList.remove('full-hidden');
   })
-
   trashDiv.addEventListener('mousedown', () => {
       trashTwo.style.display = 'none';
       trashThree.classList.remove('full-hidden');
@@ -267,60 +289,20 @@ document.addEventListener('DOMContentLoaded', function() {
       trashTwo.style.display = 'inherit';
   })
 
+  // Profile pic dropdown event listeners
   const navProfilePic = document.querySelector('#nav-profile-pic');
   const dropDownMenu = document.querySelector('#dropdown-menu');
-
   navProfilePic.addEventListener('click', () => {
     dropDownMenu.classList.toggle('display-none');
   });
-  
   document.querySelector('.dropdown-x').addEventListener('click', () => {
     dropDownMenu.classList.add('display-none');
   });
 
 });
 
-function switchToMailboxArrows() {
-    const leftArrow = document.querySelector('#left-arrow');
-    const rightArrow = document.querySelector('#right-arrow');
-    leftArrow.style.display = 'block';
-    rightArrow.style.display = 'block';
 
-    // Remove onclick event from email arrows 
-    rightArrow.removeAttribute('onclick');
-    leftArrow.removeAttribute('onclick');
-    // Add onclick event to mailbox arrows
-    rightArrow.onclick = () => handleRightArrowMailbox();
-    leftArrow.onclick = () => handleLeftArrowMailbox();
-}
-
-function handleLeftArrowMailbox() {
-  if (currentPage > 1) {
-    currentPage--;
-    if (localStorage.getItem('sent') === 'true') {
-      load_mailbox('sent');
-    } else if (localStorage.getItem('archive') === 'true') {
-      load_mailbox('archive');
-    } else {
-      load_mailbox('inbox');
-    }
-  }
-}
-
-function handleRightArrowMailbox() {
-  if ((currentPage * emailsPerPage) < totalEmails) {
-    currentPage++;
-    if (localStorage.getItem('sent') === 'true') {
-      load_mailbox('sent');
-    } else if (localStorage.getItem('archive') === 'true') {
-      load_mailbox('archive');
-    } else {
-      load_mailbox('inbox');
-    }
-  }
-}
-
-
+// VIEWS and ACTIONS
 function compose_email() {
   const composeForm = document.querySelector('#compose-form');
   if (composeForm.style.display === 'none') {
@@ -335,9 +317,7 @@ function compose_email() {
   document.querySelector('#compose-body').innerHTML = '';
 }
 
-
 function send_mail() {
-
   // Get the values of the email form
   const recipients = document.querySelector('#compose-recipients').value;
   const subject = document.querySelector('#compose-subject').value;
@@ -362,7 +342,6 @@ function send_mail() {
   load_mailbox('sent');
 }
 
-
 function load_mailbox(mailbox) {
   if (mailbox === 'sent') {
     localStorage.setItem('sent', 'true');
@@ -382,6 +361,7 @@ function load_mailbox(mailbox) {
   document.querySelector('#select-all-text').classList.remove('display-none');
   document.querySelector('#solo-trash-div').classList.add('display-none');
 
+  // Handle separate trash icons for sent mailbox and solo email views.
   if (soloTrashListener === false) {
     document.querySelector('#solo-trash-div').addEventListener('mouseover', () => {
       document.querySelector('#trash-solo-icon-01').classList.add('full-hidden');
@@ -403,11 +383,10 @@ function load_mailbox(mailbox) {
     soloTrashListener = true;
   } 
 
-
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h4>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h4>`;
 
-  // Calculate offset to fetch emails based on current page
+  // Calculate offset to fetch emails based on current page and emailsPerPage value
   const offset = (currentPage - 1) * emailsPerPage;
 
   // Fetch emails for the current page
@@ -421,6 +400,7 @@ function load_mailbox(mailbox) {
     } else {
       document.querySelector('.select-all-div').classList.remove('hidden-flat');
     }
+
     // Update display text
     const nowShowingDiv = document.querySelector('#now-showing');
     const firstEmailIndex = offset + 1;
@@ -440,6 +420,7 @@ function load_mailbox(mailbox) {
 
     // Loop through the emails
     emailsToDisplay.forEach(email => {
+
       // Create a div for the email
       const subjectLength = email.subject ? email.subject.length : 0;
       const charactersToDisplay = 86 - subjectLength;
@@ -474,7 +455,6 @@ function load_mailbox(mailbox) {
         email_div.style.backgroundColor = 'white';
         email_div.style.fontWeight = 'bold';
       }
-
 
       subjectDiv.appendChild(subjectSpan);
       subjectDiv.appendChild(bodySpan);
@@ -533,16 +513,15 @@ function load_mailbox(mailbox) {
       document.querySelector('#emails-view').appendChild(email_div);
     });
   });
-
-  
 }
 
-
 function load_email(email_id, listOfAllEmails) {
+
   // Remove listeners for mailbox arrow functions
   document.querySelector('#right-arrow').removeAttribute('onclick');
   document.querySelector('#left-arrow').removeAttribute('onclick');
   
+  // Hide the icon array and select all checkbox
   document.querySelector('#all-icons-div').classList.add('display-none');
   document.querySelector('#select-all-checkbox').classList.add('display-none');
   document.querySelector('#select-all-text').classList.add('display-none');
@@ -583,39 +562,20 @@ function load_email(email_id, listOfAllEmails) {
     }
   };
 
-
-
+  // Show the email view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
-
-
 
   // Get the email
   fetch(`/emails/${email_id}`)
   .then(response => response.json())
   .then(email => {
-
     const body = makeEmailBodyLinksClickable(email.body);
     // Create a div for the email
     const emailDiv = document.createElement('div');
-    const usersWithPics = [
-      "CoryJSuzuki", 
-      "Nick", 
-      "BlockbusterVideo", 
-      "yardsaleco", 
-      "tom_riddle26",
-      "BonsaiWorld",
-      "AuntLindaKnits",
-      "Big_D_Vader",
-      "norman_bates",
-      "A_Chigurh",
-      "AuntSpiker",
-      "AuntSponge01",
-      "TheTigerKing",
-      "JJProperties"
-    ]
-    
+
+    // Check if the sender has a profile picture, if not set to default
     senderUsername = email.sender.split('@')[0];
     if (usersWithPics.includes(senderUsername)) {
       senderUsername = senderUsername.toLowerCase();
@@ -664,7 +624,7 @@ function load_email(email_id, listOfAllEmails) {
       listenersLoaded = true;
       compose_email();
 
-      // If the email is a reply, keep the subject the same
+      // If the email is already a reply, keep the subject the same, else add 'Re: ' 
       if (email.subject.slice(0, 3) === 'Re:') {
         document.querySelector('#compose-subject').value = email.subject;
       } else {
@@ -675,7 +635,7 @@ function load_email(email_id, listOfAllEmails) {
       
     });
 
-    // Create forward btn
+    // Create forward button
     const forwardButton = document.createElement('button');
     forwardButton.classList.add('email-forward-button');
     forwardButton.innerHTML = `
@@ -683,6 +643,7 @@ function load_email(email_id, listOfAllEmails) {
           <path id="forward-icon-path" fill="rgb(84,84,84)" data-name="forward-24px" d="M23.7,5.3l-5-5a.967.967,0,0,0-1.4,0,.967.967,0,0,0,0,1.4L20.6,5H9a8.963,8.963,0,0,0-9,9v4a.945.945,0,0,0,1,1,.945.945,0,0,0,1-1V14A6.957,6.957,0,0,1,9,7H20.6l-3.3,3.3a.967.967,0,0,0,0,1.4.967.967,0,0,0,1.4,0l5-5A.967.967,0,0,0,23.7,5.3Z"/>
         </svg>
         Forward`;
+
     forwardButton.addEventListener('click', () => {
       if (!listenersLoaded) {
         minimizeCompose();
@@ -695,8 +656,7 @@ function load_email(email_id, listOfAllEmails) {
       document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
     });
 
-
-    // Create a button to archive
+    // Create archive button
     const archive_button = document.createElement('button');
     archive_button.classList.add('email-archive-button'); 
     if (email.archived) {
@@ -704,7 +664,6 @@ function load_email(email_id, listOfAllEmails) {
     } else { 
       archive_button.innerHTML = 'Archive';
     }
-
 
     archive_button.addEventListener('click', () => {
       archived = !email.archived;
@@ -717,7 +676,6 @@ function load_email(email_id, listOfAllEmails) {
       // wait until db is updated then refresh inbox
       setTimeout(() => load_mailbox('inbox'), 250);
     });
-
 
     const replyForwardBox = document.createElement('div');
     replyForwardBox.classList.add('reply-forward-box');
@@ -741,7 +699,7 @@ function load_email(email_id, listOfAllEmails) {
       })
     });
     
-    // Mark the email as read
+    // Mark the opened email as read
     fetch(`/emails/${email_id}`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -749,6 +707,48 @@ function load_email(email_id, listOfAllEmails) {
       })
     });
   });
+}
+
+
+// HELPER FUNCTIONS
+function switchToMailboxArrows() {
+  const leftArrow = document.querySelector('#left-arrow');
+  const rightArrow = document.querySelector('#right-arrow');
+  leftArrow.style.display = 'block';
+  rightArrow.style.display = 'block';
+
+  // Remove onclick event from email arrows 
+  rightArrow.removeAttribute('onclick');
+  leftArrow.removeAttribute('onclick');
+  // Add onclick event to mailbox arrows
+  rightArrow.onclick = () => handleRightArrowMailbox();
+  leftArrow.onclick = () => handleLeftArrowMailbox();
+}
+
+function handleLeftArrowMailbox() {
+  if (currentPage > 1) {
+    currentPage--;
+    if (localStorage.getItem('sent') === 'true') {
+      load_mailbox('sent');
+    } else if (localStorage.getItem('archive') === 'true') {
+      load_mailbox('archive');
+    } else {
+      load_mailbox('inbox');
+    }
+  }
+}
+
+function handleRightArrowMailbox() {
+  if ((currentPage * emailsPerPage) < totalEmails) {
+    currentPage++;
+    if (localStorage.getItem('sent') === 'true') {
+      load_mailbox('sent');
+    } else if (localStorage.getItem('archive') === 'true') {
+      load_mailbox('archive');
+    } else {
+      load_mailbox('inbox');
+    }
+  }
 }
 
 function makeEmailBodyLinksClickable (emailBody) {
@@ -774,6 +774,7 @@ function resetSelectAll() {
 }
 
 function showHideIcons() {
+  // if any checkbox is checked, show icons
   const selectAllText = document.querySelector('#select-all-text');
   const allIconsDiv = document.querySelector('#all-icons-div');
   const selectAllCheckbox = document.querySelector('#select-all-checkbox');
@@ -803,20 +804,19 @@ function showHideIcons() {
   }
 }
 
-
 function showAllIcons() {
   const iconCircleDivs = document.querySelectorAll('.icon-circle-div');
   iconCircleDivs.forEach(iconCircleDiv => {
     iconCircleDiv.style.display = 'inherit';
   });
 }
+
 function showTrashOnly() {
   const iconCircleDivs = document.querySelectorAll('.icon-circle-div');
   iconCircleDivs.forEach(iconCircleDiv => {
     iconCircleDiv.style.display = 'none';
   });
 }
-
 
 function minimizeCompose() {
   const composeForm = document.querySelector('#compose-form');
@@ -834,8 +834,6 @@ function minimizeCompose() {
     }
 
     document.querySelector('#faded-background').classList.add('display-none');
-
-    
   });
 }
 
@@ -849,7 +847,6 @@ function closeCompose() {
     composeFloatingDiv.style.display = 'none';
 
     document.querySelector('#faded-background').classList.add('display-none');
-    
   });
 }
 
