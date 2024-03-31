@@ -1,26 +1,26 @@
-textarea {
-    min-height: 400px;
+:root {
+    --primary-blue: rgb(66,132,243);
+    --alt-blue: rgb(41, 106, 218);
+    --hover-blue: rgb(29, 82, 175);
+    --primary-green: rgb(51,168,82);
+    --primary-yellow: rgb(250,188,5);
+    --pencil-yellow: rgb(215,162,3);
+    --primary-red: rgb(197,34,31);
+    --primary-grey: rgb(129, 117, 117);
+    --light-grey: rgb(170,170,170);
+    --dark-grey: rgb(88, 83, 83);
+    --lightest-grey: rgb(236,239,241);
+    --email-btn-grey: rgb(69,72,71);
 }
 
+
+/* Toggle-able classes */
 .negative-zidx {
     z-index: -1;
 }
-
-#faded-background {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000; 
-    width:100vw; 
-    height:100vh; 
-    background-color:rgba(0, 0, 0, 0.385);
-}
-
 .display-none {
     display: none !important;
 }
-
 .full-hidden {
     opacity: 0;
     width: 0 !important;
@@ -28,7 +28,6 @@ textarea {
     position:absolute !important;
     bottom: 0 !important;
 }
-
 .hidden {
     opacity: 0;
     width: 0;
@@ -40,15 +39,52 @@ textarea {
 .flex {
     display: flex;
 }
-
-
-.trash-icon {
-    height: 30px;
-    width: 30px;
-    position: relative;
-    bottom: 2px;
+/* Fade BG when full screen compose email */
+#faded-background {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; 
+    width:100vw; 
+    height:100vh; 
+    background-color:rgba(0, 0, 0, 0.385);
 }
 
+
+/* Change color of search bar elements on hover */
+.search-bar:hover svg path,
+.search-bar:focus svg path {
+    fill: var(--primary-blue);
+    transition-duration: 250ms;
+}
+.search-bar:hover input::placeholder {
+    color: var(--primary-green);
+}
+.search-bar:hover,
+.search-bar:active {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.397);
+}
+
+
+/* Hamburger Icon */
+#hamburger {
+    cursor: pointer;
+}
+#hamburger:hover path {
+    stroke: var(--primary-yellow) !important;
+}
+#hamburger:hover .bottom-bun {
+    stroke: var(--primary-blue) !important;
+}
+#hamburger:hover line {
+    stroke: var(--primary-green) !important;
+}
+#hamburger:hover polyline {
+    stroke: var(--primary-red) !important;
+}
+
+/* When hamburger is clicked */
 .shrink-button {
     display: flex;
     align-items: center;
@@ -67,36 +103,17 @@ textarea {
     width: 80px !important;
 }
 
-.search-bar:hover svg path,
-.search-bar:focus svg path {
-    fill: rgb(66,132,243);
-    transition-duration: 250ms;
-}
-.search-bar:hover input::placeholder {
-    color: rgb(51,168,82);
-}
-.search-bar:hover,
-.search-bar:active {
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.397);
-}
 
-
-#hamburger {
+/* Navbar, Icons, Select All, Checkboxes */
+.icon {
     cursor: pointer;
 }
-#hamburger:hover path {
-    stroke: rgb(250,188,5) !important;
+.checkbox {
+    width: 16px !important;
+    height: 16px !important;
+    background-size: 20px !important;
+    accent-color: var(--primary-green) !important;
 }
-#hamburger:hover .bottom-bun {
-    stroke: rgb(66,132,243) !important;
-}
-#hamburger:hover line {
-    stroke: rgb(51,168,82) !important;
-}
-#hamburger:hover polyline {
-    stroke: rgb(197,34,31) !important;
-}
-
 .select-all-div {
     display: flex;
     align-items: center;
@@ -105,27 +122,14 @@ textarea {
 #all-icons-div {
     display: flex;
 }
-.checkbox {
-    width: 16px !important;
-    height: 16px !important;
-    background-size: 20px !important;
-    accent-color: rgb(51,168,82) !important;
-}
 .email-checkbox {
-    accent-color: rgb(51,168,82);
+    accent-color: var(--primary-green);
 }
-
-
-
 #envelope-icon-div {
     display: flex;
     margin-right: 8px;
     position: relative;
     bottom: 1px;
-}
-.icon {
-    cursor: pointer;
-    
 }
 #archive-icon {
     height: 20px;
@@ -138,7 +142,12 @@ textarea {
     height: 18px;
     width: 18px;
 }
-
+.trash-icon {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    bottom: 2px;
+}
 .trash-icons {
     position: relative;
     bottom: 4px;
@@ -159,34 +168,35 @@ textarea {
     cursor: pointer;
     background-color: rgba(239, 239, 239, 0.75)
 }
-
 .icon-circle-div:hover .icon path,
 .icon-circle-div:hover .icon .rect-lines,
 .icon-circle-div:hover .icon line,
 .icon-circle-div:hover .icon polyline {
-    stroke: rgb(250,188,5);
+    stroke: var(--primary-yellow);
 }
 .icon-circle-div:hover #closed-envelope-icon path {
-    fill: rgb(66,132,243);
+    fill: var(--primary-blue);
 }
 .icon-circle-div:hover #open-envelope-icon path {
-    fill: rgb(51,168,82);
+    fill: var(--primary-green);
 }
 
 
 
-
-
+/* General Styles, Container Style Tree */
 body { 
     background-color: #eeeeee;
 }
+textarea {
+    min-height: 400px;
+}
 .page-content {
-    height: 100vh;
+    display: flex;
+    height: 100%;
     width: 100vw;
     padding: 0;
     margin: 0;
 }
-
 .main-container {
     display: flex;
     flex-grow: 1;
@@ -212,10 +222,11 @@ body {
     border-top-left-radius: 16px;
     height: 100%;
 }
+
+/* Navbar and Search */
 #bottom-navbar {
     height: 100%;
 }
-
 .top-navbar {
     display: flex;
     align-items: center;
@@ -227,10 +238,72 @@ body {
     width: 24px;
     margin-left: 8px;
 }
+#navbar-nav,
+.navbar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.nav-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}
+#logout-link {
+    position: relative;
+    left: 3px;
+}
+.logout-nav-icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
 #gmail-logo {
     height: 40px;
     width: 109px;
 }
+
+/* Hover Effects Nav Link Text */
+#inbox-link,
+#sent-link,
+#archive-link,
+#logout-link {
+    transition-duration: 250ms;
+}
+#inbox-link:hover {
+    color: var(--primary-green);
+}
+#inbox-link:hover>svg>path {
+    fill: var(--primary-green);
+}
+#sent-link:hover {
+    color: var(--primary-blue);
+}
+#sent-link:hover>svg>path {
+    fill: var(--primary-blue);
+}
+#archive-link:hover {
+    color: var(--primary-yellow);
+}
+#archive-link:hover>svg>path {
+    fill: var(--primary-yellow);
+}
+#logout-link:hover {
+    color: var(--primary-red);
+}
+#logout-link:hover>svg>path {
+    fill: var(--primary-red);
+}
+
+/* Search Bar */
 .search-bar {
     display: flex;
     align-items: center;
@@ -259,6 +332,7 @@ body {
 }
 
 
+/* User Info and Dropdown */
 .user-info {
     display: flex;
     flex-direction: column;
@@ -292,10 +366,6 @@ body {
     cursor: pointer;
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.408) !important;
 }
-
-
-
-
 #dropdown-menu {
     z-index: 1000;
     background-color: aliceblue;
@@ -326,7 +396,7 @@ body {
     margin-right: 8px;
 }
 .dropdown-x:hover {
-    color: rgb(197,34,31);
+    color: var(--primary-red);
 }
 .dropdown-greeting {
     font-size: 0.9em;
@@ -351,61 +421,18 @@ body {
     justify-content: space-around;
 }
 .dropdown-link {
-    color: rgb(41, 106, 218);
+    color: var(--alt-blue);
     font-size: 0.8em;
 }
 .dropdown-link:hover {
-    color: rgb(29, 82, 175);
+    color: var(--hover-blue);
     text-decoration: none;
-
 }
 
 
-
-
-
-.page-content {
-    display: flex;
-    height: 100%;
-    max-width: 100vw;
-    flex-grow: 1;
-}
-
-
-#navbar-nav,
-.navbar {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.nav-icon {
-    height: 20px;
-    width: 20px;
-    margin-right: 8px;
-}
-#logout-link {
-    position: relative;
-    left: 3px;
-}
-.logout-nav-icon {
-    height: 16px;
-    width: 16px;
-    margin-right: 8px;
-}
-
-
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
+/* Mailbox Views */
 .email:first-of-type {
-    border-top: 1px solid rgb(170,170,170);
+    border-top: 1px solid var(--light-grey);
 }
 .email {
     display: flex;
@@ -413,7 +440,7 @@ body {
     align-items: center;
     cursor: pointer;
     padding: 4px 16px;
-    border: 1px solid rgb(170,170,170);
+    border: 1px solid var(--light-grey);
     border-top: none;
     font-size: 0.8em;
 }
@@ -434,9 +461,41 @@ body {
     display: flex;
     justify-content: space-between;
 }
+.subject-div {
+    display: flex;
+}
+.concat-body {
+    color:var(--primary-grey)
+}
+#now-showing,
+#total-emails,
+#left-arrow,
+#right-arrow,
+#select-all-text {
+    font-size: 0.8em;
+    color: var(--primary-grey);
+}
+#select-all-text {
+    position: relative;
+    bottom: 1px;
+}
+#left-arrow,
+#right-arrow {
+    cursor: pointer;
+}
+#left-arrow:hover {
+    text-decoration: none;
+    color: var(--primary-red);
+    font-weight: bold;
+}
+#right-arrow:hover {
+    text-decoration: none;
+    color: var(--primary-green);
+    font-weight: bold;
+}
 
 
-
+/* Compose View */
 #compose-button {
     width: 150px;
     text-align: center;
@@ -444,7 +503,7 @@ body {
     border-radius: 16px;
     background-color: #ffffff;
     font-size: 0.9em;
-    color: rgb(129, 117, 117);
+    color: var(--primary-grey);
     border: none;
     cursor: pointer;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
@@ -456,12 +515,10 @@ body {
     transition-duration: 250ms;
 }
 #compose-button:hover {
-    color: rgb(66,132,243);
+    color: var(--primary-blue);
     background-color: #f5f5f5;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
-
-
 #compose-button svg {
     height: 23px;
     width: 23px;
@@ -474,103 +531,24 @@ body {
     fill: rgb(40, 40, 40);
 }
 #compose-button:hover .svg-envelope {
-    fill: rgb(197,34,31);
+    fill: var(--primary-red);
 }
 #compose-button:hover #pencil {
-    fill: rgb(51,168,82);
+    fill: var(--primary-green);
 }
-
 #compose-button:active {
     outline: none;
     border: none;
-    color: rgb(51,168,82);
+    color: var(--primary-green);
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.583);
     background-color: #cccccc;
 }
 #compose-button:active .svg-envelope {
-    fill: rgb(66,132,243);
+    fill: var(--primary-blue);
 }
 #compose-button:active #pencil {
-    fill: rgb(215, 162, 3);
+    fill: var(--pencil-yellow);
 }
-
-
-
-
-
-
-#inbox-link,
-#sent-link,
-#archive-link,
-#logout-link {
-    transition-duration: 250ms;
-}
-#inbox-link:hover {
-    color: rgb(51,168,82);
-}
-#inbox-link:hover>svg>path {
-    fill: rgb(51,168,82);
-}
-#sent-link:hover {
-    color: rgb(66,132,243);
-}
-#sent-link:hover>svg>path {
-    fill: rgb(66,132,243);
-}
-#archive-link:hover {
-    color: rgb(250,188,5);
-}
-#archive-link:hover>svg>path {
-    fill: rgb(250,188,5);
-}
-#logout-link:hover {
-    color: rgb(197,34,31);
-}
-#logout-link:hover>svg>path {
-    fill: rgb(197,34,31);
-}
-
-
-
-.subject-div {
-    display: flex;
-}
-.concat-body {
-    color:rgb(129, 117, 117)
-}
-
-#now-showing,
-#total-emails,
-#left-arrow,
-#right-arrow,
-#select-all-text {
-    font-size: 0.8em;
-    color: rgb(129, 117, 117);
-}
-
-#select-all-text {
-    position: relative;
-    bottom: 1px;
-}
-
-#left-arrow,
-#right-arrow {
-    cursor: pointer;
-}
-
-#left-arrow:hover {
-    text-decoration: none;
-    color: rgb(197,34,31);
-    font-weight: bold;
-}
-#right-arrow:hover {
-    text-decoration: none;
-    color: rgb(51,168,82);
-    font-weight: bold;
-}
-
-
-
 #new-message-text {
     font-size: 0.9em;
     margin: 8px;
@@ -582,12 +560,12 @@ body {
     right: 50px;
     height: auto;
     width: 500px;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     justify-content: center;
     align-items: center;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.285);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.326);
     z-index: 9999;
 }
 .floating-div-fullscreen {
@@ -632,7 +610,7 @@ body {
     margin: 6px 12px;
     padding: 0;
     border: none;
-    border-bottom: 1px solid rgb(236,239,241);
+    border-bottom: 1px solid var(--lightest-grey);
 }
 #compose-recipients:focus,
 #compose-subject:focus {
@@ -647,7 +625,6 @@ body {
 #compose-body:focus {
     outline: none;
 }
-
 #send-btn-div {
     position: absolute;
     bottom: 0;
@@ -657,32 +634,33 @@ body {
     padding: 12px;
 }
 #send-btn {
-
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.9em;
     width: 100px;
     height: 35px;
-    border: none !important;
     outline: none !important;
     border-radius: 25px;
-    background-color: rgb(41, 106, 218);
-    color: white;
+    color: rgb(189, 185, 185);
+    background-color: white;
+    border: 1px solid rgb(189, 185, 185);
     cursor: pointer;
-    transition-duration: 250ms;
+    transition-duration: 350ms;
 }
 #send-btn:hover {
-    background-color: rgb(29, 82, 175);
+    color: var(--alt-blue);
+    background-color: white;
+    border: 1px solid var(--alt-blue);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.285);
 }
 #send-btn:active {
     outline: none;
     border: none;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.285);
-    background-color: rgb(18, 53, 114);
+    color: white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.6);
+    background-color: var(--alt-blue);
 }
-
-
 .compose-icons-div {
     display: flex;
     align-items: center;
@@ -704,11 +682,18 @@ body {
     width: 14px;
     margin-right: 8px;
 }
-
+#minimize-compose-icon:hover {
+    color: var(--alt-blue);
+}
+#expand-compose-icon:hover path {
+    fill: var(--primary-green);
+}
+#close-compose-icon:hover {
+    fill: var(--primary-red);
+}
 
 
 /* Email View */
-
 #email-view {
     display: flex;
     flex-direction: column;
@@ -725,7 +710,7 @@ body {
 }
 .content-sender {
     font-size: 1.1em;
-    color: rgb(88, 83, 83);
+    color: var(--dark-grey);
 }
 .recipients-timestamp {
     display: flex;
@@ -735,23 +720,21 @@ body {
 }
 .content-recipients {
     font-size: 0.9em;
-    color: rgb(129, 117, 117);
+    color: var(--primary-grey);
     }
 .content-timestamp {
     font-size: 0.8em;
-    color: rgb(129, 117, 117);
+    color: var(--primary-grey);
 }
 .content-content { 
     margin-left: 48px;
 }
-
 .button-box {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: flex-end;
     margin: 64px 0  24px 24px;
-    
     padding-right: 24px;
 }
 .reply-forward-box {
@@ -766,7 +749,7 @@ body {
 .email-archive-button {
     font-size: 0.8em;
     max-height: 30px;
-    color: rgb(69,72,71);
+    color: var(--email-btn-grey);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -775,17 +758,15 @@ body {
     background-color: rgb(238,238,238);
     border: none;
     border-radius: 20px;
-    border: 1px solid rgb(69,72,71) !important;
+    border: 1px solid var(--email-btn-grey) !important;
     outline: none;
 }
-
 .email-reply-button:hover,
 .email-archive-button:hover, 
 .email-forward-button:hover {
-    background-color: rgb(69,72,71);
+    background-color: var(--email-btn-grey);
     color: white;
 }
-
 .email-reply-button:active,
 .email-reply-button:focus,
 .email-reply-button::after,
@@ -798,15 +779,12 @@ body {
     outline: none;
     border: none;
 }
-
 .email-button-active {
     outline: none !important;
     border: none !important;
     background-color: rgb(43, 44, 43) !important;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.402) !important;
 }
-
-
 .email-reply-button:hover #reply-icon #reply-icon-path,
 .email-forward-button:hover #forward-icon-path {
     fill: white !important;
@@ -816,7 +794,6 @@ body {
     width: 16px;
     margin-right: 8px;
 }
-
 .timestamp-icons-div {
     display: flex;
     align-items: center;
@@ -834,23 +811,21 @@ body {
     margin: 0 8px 0 12px;
 }
 #reply-icon-small:hover path {
-    fill: rgb(51,168,82);
+    fill: var(--primary-green);
 }
 #archive-icon-small:hover * {
-    stroke: rgb(250,188,5);
+    stroke: var(--primary-yellow);
 }
-
-
 .reply-body {
     font-size: 0.9em;
-    color:rgb(88, 83, 83);
-    border-left: 1px solid rgb(170,170,170);
+    color:var(--dark-grey);
+    border-left: 1px solid var(--light-grey);
     padding-left: 4px;
     margin-left: 16px;
 }
 
 
-
+/* Auth Pages */
 .login-page-div {
     height: 100vh;
     width: 100vw;
@@ -862,21 +837,18 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     background-color: #eeeeee;
 }
-
 .login-header {
     font-size: 2em;
-    color: rgb(88, 83, 83);
+    color: var(--dark-grey);
     margin-bottom: 16px;
 }
 .login-subheader {
     font-size: 1.2em;
-    color: rgb(129, 117, 117);
+    color: var(--primary-grey);
     margin-bottom: 16px;
 }
-
 .google-login-div {
     position: relative;
     bottom: 36px;
@@ -903,15 +875,12 @@ body {
     font-size: 0.8em;
 }
 .login-register-text {
-
-
-    color: rgb(66,132,243)
+    color: var(--primary-blue)
 }
 .login-register-text:hover {
     text-decoration: none;
-    color: rgb(29, 82, 175)
+    color: var(--hover-blue)
 }
-
 .auth-input {
     width: 250px;
     font-size: 0.8em !important;
