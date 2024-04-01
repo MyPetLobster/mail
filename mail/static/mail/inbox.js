@@ -681,7 +681,7 @@ function load_email(email_id, listOfAllEmails) {
         document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
       }
       document.querySelector('#compose-recipients').value = email.sender;
-      document.querySelector('#compose-body').innerHTML = `<br><br><div>On ${email.timestamp} ${email.sender} wrote:</div> <p class="reply-body">${email.body}</p>`;
+      document.querySelector('#compose-body').innerHTML = `<br><br><div>On ${email.timestamp} ${email.sender} wrote:</div> <div class="reply-body">${email.body}</div>`;
       
     });
 
@@ -703,7 +703,7 @@ function load_email(email_id, listOfAllEmails) {
       listenersLoaded = true;
       compose_email();
       document.querySelector('#compose-subject').value = `Fwd: ${email.subject}`;
-      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+      document.querySelector('#compose-body').innerHTML = `<br><br><div>On ${email.timestamp} ${email.sender} wrote:</div> <div class="reply-body">${email.body}</div>`;
     });
 
     // Create archive button
