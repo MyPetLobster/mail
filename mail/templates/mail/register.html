@@ -7,7 +7,8 @@
             <div>{{ message }}</div>
         {% endif %}
 
-        <div class="login-header">Create an Account</div>
+        <div class="login-header">It's about time. Welcome to the party.</div>
+        <div class="login-subheader">Create an Account</div>
         <div class="google-login-div">
             <form action="{% url 'register' %}" method="post">
                 {% csrf_token %}
