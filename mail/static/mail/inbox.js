@@ -4,6 +4,7 @@ let emailsPerPage = 25;
 let totalEmails = 0;
 let listenersLoaded = false;
 let soloTrashListener = false;
+let backForwardButton = false;
 const usersWithPics = [
   "CoryJSuzuki", 
   "Nick", 
@@ -23,8 +24,26 @@ const usersWithPics = [
   "BenThePerson"
 ]
 
+
+window.addEventListener('popstate', function(event) {
+  backForwardButton = true;
+  // Retrieve the state object from the event
+  const state = event.state;
+
+  // Check if the state object exists and contains the desired data
+  if (state) {
+    if (state.mailbox) {
+      // If the state contains a mailbox property, load the corresponding mailbox
+      load_mailbox(state.mailbox);
+    } else if (state.email_id && state.listOfAllEmails) {
+      // If the state contains email ID and list of all emails, load the corresponding email
+      load_email(state.email_id, state.listOfAllEmails);
+    }
+  }
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
-  
   // Switch to mailbox arrow event listeners
   switchToMailboxArrows();
 
@@ -352,13 +371,22 @@ function send_mail() {
 }
 
 function load_mailbox(mailbox) {
+  // Set local storage to remember which mailbox is currently being viewed
   if (mailbox === 'sent') {
     localStorage.setItem('sent', 'true');
     localStorage.setItem('archive', 'false')
   } else if (mailbox === 'archive') {
     localStorage.setItem('archive', 'true');
     localStorage.setItem('sent', 'false');
+  } else { 
+    localStorage.setItem('sent', 'false');
+    localStorage.setItem('archive', 'false');
   }
+
+  // Create state object to push to history
+  const state = {
+    mailbox: mailbox
+  };
 
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
@@ -522,10 +550,23 @@ function load_mailbox(mailbox) {
       document.querySelector('#emails-view').appendChild(email_div);
     });
   });
+
+  if (backForwardButton === false) {
+    history.pushState(state, null, `/emails/${mailbox}`);
+  } else {
+    history.replaceState(state, null, `/emails/${mailbox}`);
+    backForwardButton = false;
+  }
+  
+
 }
 
 function load_email(email_id, listOfAllEmails) {
-
+  // Create state object to push to history
+  const state = {
+    email_id: email_id,
+    listOfAllEmails: listOfAllEmails
+  };
   // Remove listeners for mailbox arrow functions
   document.querySelector('#right-arrow').removeAttribute('onclick');
   document.querySelector('#left-arrow').removeAttribute('onclick');
@@ -716,6 +757,14 @@ function load_email(email_id, listOfAllEmails) {
       })
     });
   });
+
+  if (backForwardButton === false) {
+    history.pushState(state, null, `/emails/${email_id}`);
+  } else {
+    history.replaceState(state, null, `/emails/${email_id}`);
+    backForwardButton = false;
+  }
+
 }
 
 
