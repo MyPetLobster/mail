@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Compose form submit event
   document.querySelector('#compose-form').addEventListener('submit', () => {
     send_mail();
-    localStorage.setItem('sent', 'true')
   });
 
   // Load or refresh selected mailbox. Default to inbox
@@ -371,6 +370,9 @@ function send_mail() {
 }
 
 function load_mailbox(mailbox) {
+
+  window.location.hash = `emails/${mailbox}`;
+
   // Set local storage to remember which mailbox is currently being viewed
   if (mailbox === 'sent') {
     localStorage.setItem('sent', 'true');
@@ -552,16 +554,18 @@ function load_mailbox(mailbox) {
   });
 
   if (backForwardButton === false) {
-    history.pushState(state, null, `/emails/${mailbox}`);
+    history.pushState(state, null, ``);
   } else {
-    history.replaceState(state, null, `/emails/${mailbox}`);
+    history.replaceState(state, null, ``);
     backForwardButton = false;
   }
-  
 
 }
 
 function load_email(email_id, listOfAllEmails) {
+
+  window.location.hash = `emails/${email_id}`;
+  
   // Create state object to push to history
   const state = {
     email_id: email_id,
@@ -759,9 +763,9 @@ function load_email(email_id, listOfAllEmails) {
   });
 
   if (backForwardButton === false) {
-    history.pushState(state, null, `/emails/${email_id}`);
+    history.pushState(state, null, ``);
   } else {
-    history.replaceState(state, null, `/emails/${email_id}`);
+    history.replaceState(state, null, ``);
     backForwardButton = false;
   }
 
