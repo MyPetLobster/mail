@@ -1,5 +1,4 @@
 from django import template 
-from mail.models import User, Email
 
 register = template.Library()
 
