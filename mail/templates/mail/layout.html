@@ -97,11 +97,7 @@
                     
                     <div class="user-info">
                         <a id="nav-profile-pic" class="profile-pic-container">
-                            {% if request.user.id|check_for_profile_picture %}
-                                <img class="profile-picture" src="../../static/mail/images/{{ request.user.email|parse_username_from_email }}.jpg">
-                            {% else %}
-                                <img class="profile-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
-                            {% endif %}
+                            <img class="profile-picture" src="../../static/mail/images/profile_pics_demo_db/{{ request.user.username }}.jpg">
                         </a>
                     </div>
                 </div>
@@ -113,11 +109,7 @@
                         <div id="dropdown-menu-content">
                             <h6 class="dropdown-greeting">Hi, {{ request.user.username }}!</h6>
                             <div class="dropdown-picture-div">
-                                {% if request.user.id|check_for_profile_picture %}
-                                    <img class="dropdown-picture" src="../../static/mail/images/{{ request.user.email|parse_username_from_email }}.jpg">
-                                {% else %}
-                                    <img class="dropdown-picture" src="../../static/mail/images/vecteezy_default-avatar-profile.jpg">
-                                {% endif %}
+                                <img class="profile-picture" src="../../static/mail/images/profile_pics_demo_db/{{ request.user.username }}.jpg">
                             </div>
                             <div class="dropdown-links-div">
                                 <a class="dropdown-link" href="{% url 'index' %}">Home</a>

@@ -5,24 +5,6 @@ let totalEmails = 0;
 let listenersLoaded = false;
 let soloTrashListener = false;
 let backForwardButton = false;
-const usersWithPics = [
-  "CoryJSuzuki", 
-  "Nick", 
-  "BlockbusterVideo", 
-  "yardsaleco", 
-  "tom_riddle26",
-  "BonsaiWorld",
-  "AuntLindaKnits",
-  "Big_D_Vader",
-  "norman_bates",
-  "A_Chigurh",
-  "AuntSpiker",
-  "AuntSponge01",
-  "TheTigerKing",
-  "JJProperties",
-  "DWyle445",
-  "BenThePerson"
-]
 
 
 window.addEventListener('popstate', function(event) {
@@ -565,7 +547,7 @@ function load_mailbox(mailbox) {
 function load_email(email_id, listOfAllEmails) {
 
   window.location.hash = `emails/${email_id}`;
-  
+
   // Create state object to push to history
   const state = {
     email_id: email_id,
@@ -629,19 +611,12 @@ function load_email(email_id, listOfAllEmails) {
     // Create a div for the email
     const emailDiv = document.createElement('div');
 
-    // Check if the sender has a profile picture, if not set to default
-    senderUsername = email.sender.split('@')[0];
-    if (usersWithPics.includes(senderUsername)) {
-      senderUsername = senderUsername.toLowerCase();
-    } else {
-      senderUsername = 'default';
-    }
   
     emailDiv.innerHTML = `
       <div class="email-content-div">
         <div class="content-header">
           <div id="profile-picture-email" class="profile-pic-container">
-            <img class="profile-picture" src="../../static/mail/images/${senderUsername}.jpg">
+            <img class="profile-picture" src="../../static/mail/images/profile_pics_demo_db/${email.sender}.jpg">
           </div>
           <div class="content-subject">${email.subject}</div>
         </div>
