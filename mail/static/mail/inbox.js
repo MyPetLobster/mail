@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const trashIcon = document.querySelector('.trash-icons');
 
   archiveIcon.onclick = () => {
+    resetSelectAll();
     const emailCheckboxes = document.querySelectorAll('.email-checkbox');
     let selectedEmails = [];
     selectedEmails = Array.from(emailCheckboxes).filter(checkbox => checkbox.checked);
