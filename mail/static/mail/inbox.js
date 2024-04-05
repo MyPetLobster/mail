@@ -348,6 +348,11 @@ function send_mail() {
     console.log(result);
   });
 
+  const fadedBackground = document.querySelector("#faded-background")
+  if (!fadedBackground.classList.contains("display-none")) {
+    fadedBackground.classList.add("display-none");
+  }
+
   // Load the sent mailbox
   load_mailbox('sent');
 }
