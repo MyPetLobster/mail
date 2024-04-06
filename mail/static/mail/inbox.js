@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/emails/${emailID}`, {
             method: 'PUT',
             body: JSON.stringify({
-                read: true
+                read: false
             })
         });
     });
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/emails/${emailID}`, {
             method: 'PUT',
             body: JSON.stringify({
-                read: false
+                read: true
             })
         });
     });
