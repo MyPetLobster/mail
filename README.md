@@ -19,8 +19,7 @@ project was learning to use JavaScript to interact with an API and manage state.
 
 **Site Screenshots**
 
-
-<img src="mail/static/mail/images/readme-pics/mail-register.png" height="300px" style="">
+<img src="mail/static/mail/images/readme-pics/mail-register.png" height="300px">
 <img src="mail/static/mail/images/readme-pics/mail-login.png" height="300px">
 <img src="mail/static/mail/images/readme-pics/cs50-mail-thumb.jpg" height="300px">
 <img src="mail/static/mail/images/readme-pics/mail-select-all.png" height="300px">
@@ -30,6 +29,14 @@ project was learning to use JavaScript to interact with an API and manage state.
 <img src="mail/static/mail/images/readme-pics/mail-compose-def.png" height="300px">
 <img src="mail/static/mail/images/readme-pics/mail-compose-expanded.png" height="300px">
 <img src="mail/static/mail/images/readme-pics/mail-email-view.png" height="300px">
+
+**Site Gifs**
+ 
+<img src="mail/static/mail/images/readme-pics/gif-oscar.gif" height="300px">
+<img src="mail/static/mail/images/readme-pics/gif-burger.gif" height="300px">
+<img src="mail/static/mail/images/readme-pics/gif-select-all.gif" height="300px">
+<img src="mail/static/mail/images/readme-pics/gif-search-dropdown.gif" height="300px">
+
 
 ## Project Specifications
 
