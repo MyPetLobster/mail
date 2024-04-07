@@ -92,7 +92,8 @@ project was learning to use JavaScript to interact with an API and manage state.
 
 
 ```bash
-python manage.py makemigrations
+cd mail
+python manage.py makemigrations mail
 python manage.py migrate
 python manage.py runserver
 ```
