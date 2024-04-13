@@ -1,4 +1,4 @@
-# Yard Sale - CS50W - Project 3 Mail 
+# CS50W - Project 3 Mail 
 ### By Cory Suzuki - April 2024
 
 https://github.com/MyPetLobster/mail
